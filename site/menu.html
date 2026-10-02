@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Berlin Café & Bistro Menu</title>
+<meta name="description" content="The full menu at Berlin Café & Bistro, Mirpur: The Coffee Chapter, Organic Blended Teas, Die Bäckerei and the bistro kitchen, with prices in BDT.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Gloock&family=Hanken+Grotesk:ital,wght@0,300..700;1,400&display=swap">
+<style>
+/* Layout: night bistro. Warm charcoal ground, bronze accent from the badge, parchment only where paper lives (menu, tea card). */
+:root {
+  --ink: #13110f;
+  --ink-2: #1c1916;
+  --ink-3: #26211c;
+  --cream: #efe2cc;
+  --cream-dim: #b4a893;
+  --bronze: #c79f6b;
+  --bronze-deep: #8a6a42;
+  --line: rgba(239, 226, 204, 0.12);
+  --parch: #eadcbf;
+  --parch-2: #e2d1ae;
+  --parch-ink: #2a2119;
+  --parch-dim: #5b4a37;
+  --parch-rule: #9a774b;
+
+  --display: "Gloock", "Bodoni 72", "Didot", Georgia, serif;
+  --body: "Hanken Grotesk", "Helvetica Neue", system-ui, -apple-system, sans-serif;
+  --engraved: "Cinzel", "Trajan Pro", "Times New Roman", serif;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --r-card: 22px;
+  --r-img: 16px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --wrap: 1240px;
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--cream);
+  font: 400 1.0625rem/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+::selection { background: var(--bronze); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--bronze); outline-offset: 3px; border-radius: 6px; }
+html { scrollbar-color: var(--bronze-deep) var(--ink); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--ink-3); border-radius: 10px; border: 2px solid var(--ink); }
+::-webkit-scrollbar-thumb:hover { background: var(--bronze-deep); }
+
+.skip { position: absolute; left: 16px; top: -60px; z-index: 100; padding: 10px 16px; border-radius: 999px; background: var(--cream); color: var(--ink); font-weight: 600; text-decoration: none; transition: top 200ms var(--ease-out); }
+.skip:focus { top: calc(12px + env(safe-area-inset-top, 0px)); }
+
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+
+h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+p { margin: 0; text-wrap: pretty; }
+
+.icon { width: 1.15em; height: 1.15em; flex: none; }
+
+/* film grain on a fixed, non-interactive layer only */
+.grain { position: fixed; inset: 0; z-index: 90; pointer-events: none; opacity: 0.07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+/* Glass: web approximation of Apple's material (backdrop-filter + layered edges). Not an official Apple asset. */
+.glass {
+  position: relative;
+  background:
+    linear-gradient(140deg, rgba(255, 238, 214, 0.13), rgba(255, 238, 214, 0.03) 55%),
+    rgba(30, 25, 21, 0.46);
+  -webkit-backdrop-filter: blur(22px) saturate(165%);
+  backdrop-filter: blur(22px) saturate(165%);
+  border: 1px solid rgba(255, 236, 210, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 220, 0.22),
+    inset 0 -1px 0 rgba(255, 240, 220, 0.05),
+    0 24px 60px -18px rgba(6, 4, 2, 0.6);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass { background: var(--ink-2); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
+/* Buttons: pills everywhere */
+.btn {
+  --pad: 0.85em 1.35em;
+  display: inline-flex; align-items: center; gap: 0.55em;
+  padding: var(--pad); border-radius: 999px; border: 1px solid transparent;
+  font: 600 0.95rem/1 var(--body); letter-spacing: 0.01em; white-space: nowrap;
+  text-decoration: none; cursor: pointer;
+  transition: transform 160ms var(--ease-out), background-color 220ms ease, border-color 220ms ease, color 220ms ease;
+}
+.btn:active { transform: scale(0.97); }
+.btn-solid { background: var(--cream); color: var(--ink); }
+.btn-ghost { background: rgba(255, 236, 210, 0.06); color: var(--cream); border-color: rgba(255, 236, 210, 0.22); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-solid:hover { background: #fff6e6; }
+  .btn-ghost:hover { background: rgba(255, 236, 210, 0.12); border-color: rgba(255, 236, 210, 0.36); }
+  .btn .icon { transition: transform 200ms var(--ease-out); }
+  .btn:hover .icon { transform: translateX(3px); }
+}
+
+/* Nav */
+.nav {
+  position: fixed; z-index: 50; left: 0; right: 0;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  padding-inline: 16px;
+  pointer-events: none;
+}
+.nav-bar {
+  pointer-events: auto;
+  max-width: 1120px; margin-inline: auto; height: 62px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 0 8px 0 10px; border-radius: 999px;
+  transition: background-color 300ms ease, box-shadow 300ms ease;
+}
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand img { width: 42px; height: 42px; border-radius: 50%; }
+.brand span { font-family: var(--display); font-size: 1.3rem; letter-spacing: 0.02em; }
+.brand small { display: block; font: 600 0.6rem/1 var(--body); letter-spacing: 0.24em; text-transform: uppercase; color: var(--cream-dim); margin-top: 3px; }
+.nav-links { display: flex; align-items: center; gap: 2px; list-style: none; margin: 0; padding: 0; }
+.nav-links a { display: block; padding: 0.6em 0.95em; border-radius: 999px; text-decoration: none; font-weight: 500; font-size: 0.94rem; color: var(--cream-dim); transition: color 200ms ease, background-color 200ms ease; }
+.nav-links a[aria-current="page"] { color: var(--cream); background: rgba(255, 236, 210, 0.09); }
+@media (hover: hover) and (pointer: fine) { .nav-links a:hover { color: var(--cream); background: rgba(255, 236, 210, 0.07); } }
+.nav-cta { display: flex; align-items: center; gap: 8px; }
+.nav-toggle { display: none; width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255, 236, 210, 0.18); background: rgba(255, 236, 210, 0.06); color: var(--cream); align-items: center; justify-content: center; cursor: pointer; transition: transform 160ms var(--ease-out); }
+.nav-toggle:active { transform: scale(0.95); }
+.nav-sheet {
+  pointer-events: auto; max-width: 1120px; margin: 10px auto 0; border-radius: var(--r-card); padding: 10px;
+  transform-origin: top right;
+  transition: opacity 220ms var(--ease-out), transform 260ms var(--ease-out), filter 260ms var(--ease-out);
+}
+.nav-sheet[hidden] { display: block !important; opacity: 0; transform: scale(0.96) translateY(-6px); filter: blur(6px); pointer-events: none; visibility: hidden; }
+.nav-sheet a { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-radius: 14px; text-decoration: none; font-size: 1.1rem; }
+.nav-sheet a:active { background: rgba(255, 236, 210, 0.08); }
+@media (min-width: 861px) { .nav-sheet { display: none !important; } }
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: inline-flex; }
+  .nav-cta .btn { --pad: 0.8em 1.1em; font-size: 0.9rem; }
+}
+@media (max-width: 400px) { .brand small { display: none; } .brand span { font-size: 1.15rem; } }
+
+/* Footer */
+.footer { border-top: 1px solid var(--line); padding-block: 56px calc(40px + env(safe-area-inset-bottom, 0px)); color: var(--cream-dim); font-size: 0.95rem; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; align-items: start; }
+.footer .brand img { width: 56px; height: 56px; }
+.footer h3 { font: 600 0.78rem/1 var(--body); letter-spacing: 0.18em; text-transform: uppercase; color: var(--cream); margin-bottom: 14px; }
+.footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.footer a { text-decoration: none; transition: color 200ms ease; }
+@media (hover: hover) and (pointer: fine) { .footer a:hover { color: var(--cream); } }
+.footer-base { margin-top: 44px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 0.85rem; }
+@media (max-width: 760px) { .footer-grid { grid-template-columns: 1fr; } }
+
+/* Scroll-driven reveals: progressive enhancement. Content is fully visible where unsupported or reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .rv { animation: rv-in linear both; animation-timeline: view(); animation-range: entry 0% entry 220px; }
+    .rv-clip { animation: rv-clip linear both; animation-timeline: view(); animation-range: entry 0% entry 320px; }
+  }
+}
+@keyframes rv-in { from { opacity: 0; transform: translateY(28px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes rv-clip { from { clip-path: inset(18% 8% 18% 8% round 28px); transform: scale(1.06); } to { clip-path: inset(0 0 0 0 round var(--r-img)); transform: none; } }
+
+
+body { padding-top: env(safe-area-inset-top, 0px); }
+.backdrop { position: fixed; inset: 0; z-index: -1; }
+.backdrop img { width: 100%; height: 100%; object-fit: cover; filter: blur(18px) saturate(110%); transform: scale(1.08); opacity: 0.55; }
+.backdrop::after { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 80% at 50% 0%, rgba(19, 17, 15, 0.55), rgba(19, 17, 15, 0.92) 70%); }
+
+.menu-head { padding-block: calc(120px + env(safe-area-inset-top, 0px)) 48px; text-align: center; display: grid; justify-items: center; gap: 18px; }
+.menu-head img { width: clamp(96px, 12vw, 132px); height: auto; border-radius: 50%; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8); }
+.menu-head h1 { font-size: clamp(2.6rem, 7vw, 5.4rem); line-height: 0.98; letter-spacing: -0.02em; }
+.menu-head p { color: var(--cream-dim); max-width: 46ch; }
+@media (prefers-reduced-motion: no-preference) {
+  .menu-head > * { animation: rise 900ms var(--ease-out) both; }
+  .menu-head > *:nth-child(2) { animation-delay: 80ms; }
+  .menu-head > *:nth-child(3) { animation-delay: 160ms; }
+  .menu-head img { animation-name: badge-in; }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(18px); filter: blur(6px); } }
+@keyframes badge-in { from { opacity: 0; transform: scale(0.9) rotate(-12deg); filter: blur(6px); } }
+
+/* Sticky glass category bar */
+.cats { position: sticky; top: calc(88px + env(safe-area-inset-top, 0px)); z-index: 40; display: flex; justify-content: center; padding-inline: 16px; margin-bottom: 40px; pointer-events: none; }
+.cats-bar { pointer-events: auto; position: relative; display: flex; gap: 2px; padding: 6px; border-radius: 999px; overflow-x: auto; scrollbar-width: none; max-width: 100%; }
+.cats-bar::-webkit-scrollbar { display: none; }
+.nav-bar.glass { background: linear-gradient(140deg, rgba(255,238,214,0.12), rgba(255,238,214,0.03) 55%), rgba(24,20,17,0.82); }
+.cats-bar.glass { background: linear-gradient(140deg, rgba(255,238,214,0.12), rgba(255,238,214,0.03) 55%), rgba(24,20,17,0.82); -webkit-backdrop-filter: blur(26px) saturate(170%); backdrop-filter: blur(26px) saturate(170%); }
+.cats-bar a { position: relative; z-index: 1; flex: none; padding: 0.62em 1.05em; border-radius: 999px; text-decoration: none; font-size: 0.92rem; font-weight: 500; color: var(--cream-dim); transition: color 220ms ease; white-space: nowrap; }
+.cats-bar a[aria-current="true"] { color: var(--ink); }
+.cats-pill { position: absolute; z-index: 0; top: 6px; left: 0; height: calc(100% - 12px); border-radius: 999px; background: var(--cream); transition: transform 420ms var(--ease-drawer), width 420ms var(--ease-drawer); }
+@media (hover: hover) and (pointer: fine) { .cats-bar a:not([aria-current="true"]):hover { color: var(--cream); } }
+
+/* The parchment sheet, after the owner's printed menu */
+.sheet {
+  position: relative; max-width: 1120px; margin: 0 auto 80px; color: var(--parch-ink);
+  background-color: var(--parch);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.35  0 0 0 0 0.25  0 0 0 0 0.12  0 0 0 0.09 0'/></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>"),
+    radial-gradient(120% 60% at 50% 0%, rgba(255, 250, 238, 0.55), transparent 60%);
+  border-radius: 6px;
+  box-shadow: 0 50px 120px -40px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(90, 70, 40, 0.25);
+  padding: clamp(28px, 6vw, 72px) clamp(18px, 5vw, 64px);
+}
+.sheet::before, .sheet::after { content: ""; position: absolute; pointer-events: none; border: 1px solid var(--parch-rule); }
+.sheet::before { inset: 12px; }
+.sheet::after { inset: 18px; border-width: 2px; border-color: rgba(154, 119, 75, 0.55); }
+.corner { position: absolute; width: 14px; height: 14px; border: 1px solid var(--parch-rule); background: var(--parch); transform: rotate(45deg); z-index: 1; }
+.corner.tl { top: 8px; left: 8px; } .corner.tr { top: 8px; right: 8px; } .corner.bl { bottom: 8px; left: 8px; } .corner.br { bottom: 8px; right: 8px; }
+
+.sec { padding-block: clamp(40px, 6vw, 64px) 8px; scroll-margin-top: 150px; position: relative; z-index: 2; }
+.sec + .sec { border-top: 1px solid rgba(154, 119, 75, 0.35); }
+.sec-title { text-align: center; display: grid; justify-items: center; gap: 10px; margin-bottom: clamp(28px, 4vw, 44px); }
+.sec-title h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1; color: var(--parch-ink); }
+.sec-title .sub { font: 600 0.82rem/1.3 var(--engraved); letter-spacing: 0.16em; text-transform: uppercase; color: var(--parch-dim); }
+.flourish { display: flex; align-items: center; gap: 12px; color: var(--parch-rule); }
+.flourish::before, .flourish::after { content: ""; width: clamp(40px, 10vw, 90px); height: 1px; background: currentColor; }
+.flourish span { width: 7px; height: 7px; transform: rotate(45deg); border: 1px solid currentColor; }
+
+/* Featured: framed plates */
+.plates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3.4vw, 44px) clamp(18px, 2.6vw, 32px); }
+.plate { margin: 0; text-align: center; display: grid; gap: 12px; align-content: start; }
+.frame { position: relative; padding: 9px; border: 1px solid var(--parch-rule); border-radius: 26px; background: rgba(255, 250, 238, 0.4); }
+.frame::before { content: ""; position: absolute; inset: 4px; border: 1px solid rgba(154, 119, 75, 0.45); border-radius: 22px; pointer-events: none; }
+.frame .ph { border-radius: 18px; overflow: hidden; aspect-ratio: 4 / 3; background: var(--parch-2); }
+.frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 800ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .plate:hover .frame img { transform: scale(1.05); } }
+.plate h3 { font: 600 clamp(1rem, 1.5vw, 1.12rem)/1.25 var(--engraved); letter-spacing: 0.06em; text-transform: uppercase; color: var(--parch-ink); }
+.plate p { color: var(--parch-dim); font-size: 0.95rem; max-width: 30ch; margin-inline: auto; }
+.plate .px { display: flex; align-items: center; justify-content: center; gap: 12px; font: 400 1.5rem/1 var(--display); color: var(--parch-ink); font-variant-numeric: tabular-nums; }
+.plate .px::before, .plate .px::after { content: ""; width: 34px; height: 1px; background: var(--parch-rule); }
+@media (max-width: 900px) { .plates { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .plates { grid-template-columns: 1fr; } .plate p { max-width: 36ch; } }
+
+/* Item rows */
+.groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 56px); }
+.groups.one { grid-template-columns: 1fr; max-width: 760px; margin-inline: auto; }
+.group h3 { font: 600 0.95rem/1.2 var(--engraved); letter-spacing: 0.14em; text-transform: uppercase; color: var(--parch-ink); padding-bottom: 10px; border-bottom: 1px solid var(--parch-rule); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 12px; }
+.group h3 .cols-lbl { display: flex; gap: 0; font: 600 0.68rem/1.6 var(--body); letter-spacing: 0.12em; color: var(--parch-dim); }
+.group h3 .cols-lbl span { width: 64px; text-align: right; }
+.group .note { margin-top: 10px; font-size: 0.86rem; font-style: italic; color: var(--parch-dim); }
+.item { display: grid; grid-template-columns: 1fr auto; column-gap: 14px; padding: 13px 0; align-items: start; }
+.item + .item { border-top: 1px dashed rgba(154, 119, 75, 0.35); }
+.item .nm { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.item .nm b { font-weight: 600; font-size: 1.04rem; }
+.item .ds { grid-column: 1 / 2; margin-top: 3px; font-size: 0.92rem; color: var(--parch-dim); max-width: 52ch; }
+.item .pr { font: 400 1.18rem/1.2 var(--display); font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
+.item .pr.two { display: flex; }
+.item .pr.two span { width: 64px; }
+.item .pr .na { color: rgba(91, 74, 55, 0.5); }
+.item.has-ph { grid-template-columns: 84px 1fr auto; }
+.item.has-ph .thumb { grid-row: span 2; width: 84px; height: 84px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(154, 119, 75, 0.5); padding: 3px; background: rgba(255, 250, 238, 0.5); }
+.item.has-ph .thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+.item.has-ph .ds { grid-column: 2 / 3; }
+.item.has-ph .pr { grid-column: 3; grid-row: 1; }
+.tag { font: 600 0.7rem/1 var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--parch-dim); border: 1px solid rgba(154, 119, 75, 0.5); border-radius: 999px; padding: 4px 8px; white-space: nowrap; }
+@media (max-width: 760px) {
+  .groups { grid-template-columns: 1fr; }
+  .item.has-ph { grid-template-columns: 64px 1fr auto; }
+  .item.has-ph .thumb { width: 64px; height: 64px; }
+}
+
+/* Teas: a card of six blends */
+.teas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.tea { border: 1px solid rgba(154, 119, 75, 0.5); border-radius: 18px; padding: 20px; background: rgba(255, 250, 238, 0.35); display: grid; gap: 8px; align-content: start; transition: transform 260ms var(--ease-out), background-color 260ms ease; }
+.tea h3 { font: 400 1.35rem/1.15 var(--display); color: var(--parch-ink); }
+.tea p { font-size: 0.92rem; color: var(--parch-dim); }
+@media (hover: hover) and (pointer: fine) { .tea:hover { transform: translateY(-3px); background: rgba(255, 250, 238, 0.6); } }
+.tea-foot { margin-top: 18px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 28px; font: 600 0.85rem/1 var(--engraved); letter-spacing: 0.12em; text-transform: uppercase; color: var(--parch-ink); }
+@media (max-width: 860px) { .teas { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .teas { grid-template-columns: 1fr; } }
+
+.photo-band { margin: 8px 0 34px; display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 12px; }
+.photo-band figure { margin: 0; border-radius: 18px; overflow: hidden; aspect-ratio: 4 / 3; border: 1px solid rgba(154, 119, 75, 0.5); padding: 4px; background: rgba(255, 250, 238, 0.4); }
+.photo-band img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
+@media (max-width: 640px) { .photo-band { grid-template-columns: 1fr 1fr; } .photo-band figure:first-child { grid-column: 1 / -1; } }
+
+.sheet-foot { text-align: center; padding-top: 40px; position: relative; z-index: 2; display: grid; justify-items: center; gap: 10px; color: var(--parch-dim); font-size: 0.92rem; }
+.sheet-foot img { width: 64px; border-radius: 50%; }
+.sheet-foot strong { font: 400 1.4rem/1 var(--display); color: var(--parch-ink); font-weight: 400; }
+.menu-cta { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 0 auto 90px; padding-inline: 16px; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+<div class="backdrop" aria-hidden="true"><img src="img/interior-window.webp" alt=""></div>
+
+<header class="nav">
+  <nav class="nav-bar glass" aria-label="Main">
+    <a class="brand" href="./" aria-label="Berlin Café & Bistro home">
+      <img src="img/logo-160.webp" alt="" width="42" height="42">
+      <span>Berlin<small>Café &amp; Bistro</small></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="./#story">Story</a></li>
+      <li><a href="./#signatures">Signatures</a></li>
+      <li><a href="./#gallery">Gallery</a></li>
+      <li><a href="./#visit">Visit</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="./"><svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Home</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Open navigation"><svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg></button>
+    </div>
+  </nav>
+  <div class="nav-sheet glass" id="sheet" hidden>
+    <a href="./">Home <svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+    <a href="./#story">Story <svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+    <a href="./#gallery">Gallery <svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+    <a href="./#visit">Visit <svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+  </div>
+</header>
+
+<main id="main">
+  <div class="menu-head wrap">
+    <img src="img/logo-480.webp" alt="Berlin Café & Bistro badge" width="132" height="132">
+    <h1>The Menu</h1>
+    <p>Coffee, organic teas, the bakery counter and the bistro kitchen. All prices in BDT.</p>
+  </div>
+
+  <nav class="cats" aria-label="Menu sections">
+    <div class="cats-bar glass">
+      <span class="cats-pill" aria-hidden="true"></span>
+      <a href="#picks">Chef's picks</a>
+      <a href="#coffee">Coffee</a>
+      <a href="#teas">Teas</a>
+      <a href="#bakery">Bakery</a>
+      <a href="#appetizers">Appetizers</a>
+      <a href="#sandwiches">Sandwiches</a>
+      <a href="#salads">Salads</a>
+      <a href="#breakfast">Breakfast</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <article class="sheet">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <section class="sec" id="picks" aria-labelledby="picks-t">
+        <div class="sec-title"><div class="flourish" aria-hidden="true"><span></span></div><h2 id="picks-t">Chef&#x27;s picks</h2><p class="sub">From the bistro kitchen</p></div>
+        <div class="plates">
+          <figure class="plate">
+            <div class="frame rv"><div class="ph"><img src="img/bruschetta.webp" alt="Classic Bruschetta" loading="lazy"></div></div>
+            <h3>- Classic Bruschetta -</h3>
+            <p>Garlic mushrooms and fresh herbs on toasted bread, served with fries</p>
+            <span class="px">350/-</span>
+          </figure>
+          <figure class="plate">
+            <div class="frame rv"><div class="ph"><img src="img/wrap.webp" alt="Tortilla Chicken Wrap" loading="lazy"></div></div>
+            <h3>- Tortilla Chicken Wrap -</h3>
+            <p>Grilled chicken and fresh veggies in a soft tortilla, with dipping sauce</p>
+            <span class="px">350/-</span>
+          </figure>
+          <figure class="plate">
+            <div class="frame rv"><div class="ph"><img src="img/huns-kase.webp" alt="Huns &amp; Kase" loading="lazy"></div></div>
+            <h3>- Huns &amp; Kase -</h3>
+            <p>Chicken with melted cheese and mushrooms in a creamy herb sauce</p>
+            <span class="px">390/-</span>
+          </figure>
+          <figure class="plate">
+            <div class="frame rv"><div class="ph"><img src="img/club.webp" alt="Classic Club Sandwich" loading="lazy"></div></div>
+            <h3>- Classic Club Sandwich -</h3>
+            <p>Triple-decker with chicken, fried egg, tomato and lettuce, with golden chips</p>
+            <span class="px">380/-</span>
+          </figure>
+          <figure class="plate">
+            <div class="frame rv"><div class="ph"><img src="img/cheese-blast.webp" alt="Chicken Cheese Blast" loading="lazy"></div></div>
+            <h3>- Chicken Cheese Blast -</h3>
+            <p>Golden chicken and mozzarella croquettes with garlic mayo</p>
+            <span class="px">390/-</span>
+          </figure>
+          <figure class="plate">
+            <div class="frame rv"><div class="ph"><img src="img/schnitzel.webp" alt="German Chicken Schnitzel" loading="lazy"></div></div>
+            <h3>- German Chicken Schnitzel -</h3>
+            <p>Thin breaded chicken cutlet, shallow-fried until golden</p>
+            <span class="px">350/-</span>
+          </figure>
+        </div>
+      </section>
+      <section class="sec" id="coffee" aria-labelledby="coffee-t">
+        <div class="sec-title"><div class="flourish" aria-hidden="true"><span></span></div><h2 id="coffee-t">The Coffee Chapter</h2><p class="sub">Espresso classics, froccinos, iced and refreshers</p></div>
+        <div class="photo-band">
+          <figure class="rv"><img src="img/latte.webp" alt="Cafe latte with latte art" loading="lazy"></figure>
+          <figure class="rv"><img src="img/shakes.webp" alt="Chocolate froccinos" loading="lazy"></figure>
+          <figure class="rv"><img src="img/cake-iced.webp" alt="Iced drink with chocolate cake" loading="lazy"></figure>
+        </div>
+        <div class="groups">
+          <div class="group"><h3>Espresso classics<span class="cols-lbl"><span>Regular</span><span>Large</span></span></h3><div class="item"><div class="nm"><b>Espresso</b></div><span class="pr two"><span>190</span><span>230</span></span></div><div class="item"><div class="nm"><b>Americano</b></div><span class="pr two"><span>220</span><span>300</span></span></div><div class="item"><div class="nm"><b>Cafe Latte</b></div><span class="pr two"><span>260</span><span>360</span></span></div><div class="item"><div class="nm"><b>Cappuccino</b></div><span class="pr two"><span>260</span><span>360</span></span></div><div class="item"><div class="nm"><b>Affogato</b></div><span class="pr two"><span><span class="na">-</span></span><span>280</span></span></div><div class="item"><div class="nm"><b>Flavoured Latte</b></div><span class="pr two"><span>340</span><span>440</span></span></div><div class="item"><div class="nm"><b>Cafe / White Mocha</b></div><span class="pr two"><span>340</span><span>440</span></span></div><p class="note">Extra shot 80</p></div>
+          <div class="group"><h3>Froccinos<span class="cols-lbl"><span>Regular</span><span>Large</span></span></h3><div class="item"><div class="nm"><b>Cafe Latte</b></div><span class="pr two"><span>360</span><span>460</span></span></div><div class="item"><div class="nm"><b>Flavoured Latte</b></div><span class="pr two"><span>400</span><span>500</span></span></div><div class="item"><div class="nm"><b>Shakes</b></div><span class="pr two"><span>400</span><span>500</span></span></div><div class="item"><div class="nm"><b>Cafe / White Mocha</b></div><span class="pr two"><span>440</span><span>540</span></span></div><p class="note">Ice-blended coffee. Extra shot 80, whipped cream 100</p></div>
+          <div class="group"><h3>Iced<span class="cols-lbl"><span>Regular</span><span>Large</span></span></h3><div class="item"><div class="nm"><b>Iced Americano</b></div><span class="pr two"><span>260</span><span>360</span></span></div><div class="item"><div class="nm"><b>Cold Brew</b></div><span class="pr two"><span>280</span><span>400</span></span></div><div class="item"><div class="nm"><b>Iced Cafe Latte</b></div><span class="pr two"><span>300</span><span>400</span></span></div><div class="item"><div class="nm"><b>Iced Flavoured Latte</b></div><span class="pr two"><span>340</span><span>450</span></span></div><div class="item"><div class="nm"><b>Coconut Brew</b></div><span class="pr two"><span><span class="na">-</span></span><span>400</span></span></div><div class="item"><div class="nm"><b>Iced Cafe Mocha</b></div><span class="pr two"><span>380</span><span>480</span></span></div><div class="item"><div class="nm"><b>Iced White Mocha</b></div><span class="pr two"><span>380</span><span>480</span></span></div><p class="note">Extra shot 80</p></div>
+          <div class="group"><h3>Refreshers</h3><div class="item"><div class="nm"><b>Fruit Fizz</b></div><span class="pr">320/-</span><p class="ds">Flavoured soda</p></div><div class="item"><div class="nm"><b>Mojito</b></div><span class="pr">400/-</span></div><div class="item"><div class="nm"><b>Flavoured Iced Tea</b></div><span class="pr">300/-</span></div><h3 style="margin-top:26px">Drinks</h3><div class="item"><div class="nm"><b>Mineral Water</b></div><span class="pr">At MRP</span></div><div class="item"><div class="nm"><b>Alkaline Water</b></div><span class="pr">At MRP</span></div></div>
+        </div>
+      </section>
+      <section class="sec" id="teas" aria-labelledby="teas-t">
+        <div class="sec-title"><div class="flourish" aria-hidden="true"><span></span></div><h2 id="teas-t">Organic Blended Teas</h2><p class="sub">Six house blends</p></div>
+        <div class="teas">
+          <div class="tea rv"><h3>Jasmine &amp; White Peach</h3><p>Sweet, fruity and aromatic with soft floral notes.</p></div>
+          <div class="tea rv"><h3>African Red Rooibos</h3><p>Caffeine-free, smooth and naturally sweet.</p></div>
+          <div class="tea rv"><h3>Lemongrass, Ginger &amp; Rose</h3><p>Caffeine-free, bright and gently warming.</p></div>
+          <div class="tea rv"><h3>Blueberry &amp; Mint</h3><p>Caffeine-free, cool and fruity.</p></div>
+          <div class="tea rv"><h3>Cherry &amp; Rose</h3><p>Caffeine-free, soft and floral.</p></div>
+          <div class="tea rv"><h3>Raspberry &amp; Blueberry</h3><p>A double berry blend, light and low in calories.</p></div>
+        </div>
+        <p class="tea-foot"><span>220/- each</span><span>Add honey 40</span></p>
+      </section>
+      <section class="sec" id="bakery" aria-labelledby="bakery-t">
+        <div class="sec-title"><div class="flourish" aria-hidden="true"><span></span></div><h2 id="bakery-t">Die Bäckerei</h2><p class="sub">Brownies, cookies, pastries, donuts and croissants</p></div>
+        <div class="photo-band">
+          <figure class="rv"><img src="img/croissant.webp" alt="Croissant sandwich" loading="lazy"></figure>
+          <figure class="rv"><img src="img/cake-iced.webp" alt="Chocolate cake slice" loading="lazy"></figure>
+          <figure class="rv"><img src="img/shakes.webp" alt="Shakes with a cookie" loading="lazy"></figure>
+        </div>
+        <div class="groups">
+          <div class="group"><h3>Brownie &amp; Cookie</h3><div class="item"><div class="nm"><b>Brownie</b></div><span class="pr">130/-</span></div><div class="item"><div class="nm"><b>Choco Brownie</b></div><span class="pr">160/-</span></div><div class="item"><div class="nm"><b>Chocolate Chip Cookies</b></div><span class="pr">150/-</span></div><div class="item"><div class="nm"><b>Choco Lava</b></div><span class="pr">140/-</span></div><div class="item"><div class="nm"><b>Choco Lava with Ice Cream</b></div><span class="pr">190/-</span></div><div class="item"><div class="nm"><b>Red Velvet Cookie</b></div><span class="pr">150/-</span></div></div>
+          <div class="group"><h3>Pastry</h3><div class="item"><div class="nm"><b>Blueberry Cheesecake</b></div><span class="pr">430/-</span></div><div class="item"><div class="nm"><b>American Cheesecake</b></div><span class="pr">360/-</span></div><div class="item"><div class="nm"><b>Strawberry Cheesecake</b></div><span class="pr">420/-</span></div><div class="item"><div class="nm"><b>Oreo Cake</b></div><span class="pr">300/-</span></div><div class="item"><div class="nm"><b>Milk Cake</b></div><span class="pr">260/-</span></div><div class="item"><div class="nm"><b>Ferrero Cake</b></div><span class="pr">410/-</span></div><div class="item"><div class="nm"><b>Blueberry &amp; Vanilla</b></div><span class="pr">310/-</span></div><div class="item"><div class="nm"><b>Tiramisu</b></div><span class="pr">390/-</span></div></div>
+          <div class="group"><h3>Donuts &amp; Croissants</h3><div class="item"><div class="nm"><b>Croissant</b></div><span class="pr">220/-</span></div><div class="item"><div class="nm"><b>Chocolate Croissant</b></div><span class="pr">270/-</span></div><div class="item"><div class="nm"><b>Banana Bread</b></div><span class="pr">120/-</span></div><div class="item"><div class="nm"><b>Chocolate Donut</b></div><span class="pr">190/-</span></div><div class="item"><div class="nm"><b>Lemon Donut</b></div><span class="pr">190/-</span></div><div class="item"><div class="nm"><b>Mocha Donut</b></div><span class="pr">190/-</span></div></div>
+        </div>
+      </section>
+      <section class="sec" id="appetizers" aria-labelledby="appetizers-t">
+        <div class="sec-title"><div class="flourish" aria-hidden="true"><span></span></div><h2 id="appetizers-t">Appetizer</h2><p class="sub">Small plates and sharing</p></div>
+        <div class="groups"><div class="group"><div class="item has-ph"><div class="thumb"><img src="img/tenders.webp" alt="" loading="lazy"></div><div class="nm"><b>Crispy Chicken Tender</b></div><span class="pr">360/-</span><p class="ds">Six pieces. Juicy chicken in a crisp, flavourful coating with garlic mayonnaise and hot tomato sauce.</p></div><div class="item has-ph"><div class="thumb"><img src="img/cheese-blast.webp" alt="" loading="lazy"></div><div class="nm"><b>Chicken Cheese Blast</b></div><span class="pr">390/-</span><p class="ds">Five pieces. Ground chicken with fresh herbs and spices, stuffed with mozzarella. Garlic mayonnaise and hot tomato sauce.</p></div><div class="item has-ph"><div class="thumb"><img src="img/fish-chips.webp" alt="" loading="lazy"></div><div class="nm"><b>Fish &amp; Chips</b></div><span class="pr">480/-</span><p class="ds">Imported fish, battered and fried, with chips and tartar sauce.</p></div><div class="item"><div class="nm"><b>Berlin Special Fish &amp; Chips</b></div><span class="pr">650/-</span><p class="ds">Vetki or coral fish, battered and fried, with chips and tartar sauce.</p></div><div class="item has-ph"><div class="thumb"><img src="img/bruschetta.webp" alt="" loading="lazy"></div><div class="nm"><b>Bruschetta</b></div><span class="pr">350/-</span><p class="ds">Toasted crusty bread topped with garlic-infused mushrooms and fresh herbs, with fries.</p></div></div><div class="group"><div class="item"><div class="nm"><b>Garlic Mushroom</b></div><span class="pr">340/-</span></div><div class="item has-ph"><div class="thumb"><img src="img/huns-kase.webp" alt="" loading="lazy"></div><div class="nm"><b>Huns &amp; Kase</b></div><span class="pr">390/-</span><p class="ds">Chicken with melted cheese and mushrooms in a creamy herb sauce.</p></div><div class="item has-ph"><div class="thumb"><img src="img/sauteed.webp" alt="" loading="lazy"></div><div class="nm"><b>Chicken &amp; Mushroom Sautéed Vegetables</b></div><span class="pr">350/-</span><p class="ds">Chicken breast and mushrooms sautéed with crisp vegetables in butter and olive oil.</p></div><div class="item has-ph"><div class="thumb"><img src="img/schnitzel.webp" alt="" loading="lazy"></div><div class="nm"><b>German Chicken Schnitzel</b></div><span class="pr">350/-</span><p class="ds">Thin chicken cutlet in flour, egg and breadcrumbs, shallow-fried until golden. Garlic mayonnaise and hot tomato sauce.</p></div><div class="item has-ph"><div class="thumb"><img src="img/fries.webp" alt="" loading="lazy"></div><div class="nm"><b>French Fry</b></div><span class="pr">220/-</span><p class="ds">Imported French-cut potatoes with garlic mayo, hot tomato sauce and chef&#x27;s special chaat masala.</p></div></div></div>
+      </section>
+      <section class="sec" id="sandwiches" aria-labelledby="sandwiches-t">
+        <div class="sec-title"><div class="flourish" aria-hidden="true"><span></span></div><h2 id="sandwiches-t">Sandwich &amp; Wraps</h2><p class="sub">Served with fries or chips</p></div>
+        <div class="groups"><div class="group"><div class="item has-ph"><div class="thumb"><img src="img/club.webp" alt="" loading="lazy"></div><div class="nm"><b>Club Sandwich</b></div><span class="pr">380/-</span><p class="ds">Triple-decker with chicken, fried egg, tomato and lettuce, served with golden chips.</p></div><div class="item has-ph"><div class="thumb"><img src="img/supreme.webp" alt="" loading="lazy"></div><div class="nm"><b>Chicken Mushroom Supreme</b></div><span class="pr">400/-</span><p class="ds">Chicken, button and shiitake mushrooms, cheese and tomato between three slices of bread, with garlic mayonnaise.</p></div></div><div class="group"><div class="item"><div class="nm"><b>Berlin Special Tuna Sandwich</b></div><span class="pr">450/-</span></div><div class="item has-ph"><div class="thumb"><img src="img/wrap.webp" alt="" loading="lazy"></div><div class="nm"><b>Tortilla Chicken Wrap</b></div><span class="pr">350/-</span><p class="ds">Grilled chicken breast, cream cheese, lettuce and capsicum rolled in a soft tortilla, with dipping sauce.</p></div></div></div>
+      </section>
+      <section class="sec" id="salads" aria-labelledby="salads-t">
+        <div class="sec-title"><div class="flourish" aria-hidden="true"><span></span></div><h2 id="salads-t">Salad</h2><p class="sub">Fresh and generous</p></div>
+        <div class="groups one"><div class="group"><div class="item"><div class="nm"><b>Berlin Special Cashewnut Salad</b></div><span class="pr">550/-</span><p class="ds">Portion 1:2</p></div><div class="item"><div class="nm"><b>Healthy Apple Cashewnut Salad</b></div><span class="pr">650/-</span><p class="ds">Portion 1:2</p></div><div class="item"><div class="nm"><b>Greek Salad</b></div><span class="pr">550/-</span><p class="ds">Portion 1:2</p></div></div></div>
+      </section>
+      <section class="sec" id="breakfast" aria-labelledby="breakfast-t">
+        <div class="sec-title"><div class="flourish" aria-hidden="true"><span></span></div><h2 id="breakfast-t">Breakfast</h2><p class="sub">Morning plates</p></div>
+        <div class="groups one"><div class="group"><div class="item"><div class="nm"><b>German Habits</b></div><span class="pr">380/-</span></div><div class="item has-ph"><div class="thumb"><img src="img/english-breakfast.webp" alt="" loading="lazy"></div><div class="nm"><b>English Breakfast</b></div><span class="pr">400/-</span><p class="ds">Eggs with golden yolks, seared sausage, mushrooms, beans and grilled tomato, with buttered toast.</p></div></div></div>
+      </section>
+      <footer class="sheet-foot">
+        <img src="img/logo-160.webp" alt="" width="64" height="64">
+        <strong>Brewed for the restless</strong>
+        <span>Berlin Café &amp; Bistro, Mirpur, Dhaka. Open 9 AM to 11 PM. Est. 2026.</span>
+      </footer>
+    </article>
+  </div>
+
+  <div class="menu-cta">
+    <a class="btn btn-solid" href="https://maps.app.goo.gl/bYZZ1aU8XZ1qJz4E9" target="_blank" rel="noopener">Get directions <svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a>
+    <a class="btn btn-ghost" href="https://www.instagram.com/berlincafe_bistro" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg> Instagram</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="./"><img src="img/logo-160.webp" alt="" width="56" height="56"><span>Berlin<small>Café &amp; Bistro</small></span></a>
+        <p style="margin-top:16px;max-width:34ch">Specialty coffee, organic teas, German bakes and an all-day bistro in Mirpur, Dhaka. Est. 2026.</p>
+      </div>
+      <div>
+        <h3>Visit</h3>
+        <ul>
+          <li>Mirpur, Dhaka</li>
+          <li>9:00 AM to 11:00 PM</li>
+          <li><a href="https://maps.app.goo.gl/bYZZ1aU8XZ1qJz4E9" target="_blank" rel="noopener">Get directions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Follow</h3>
+        <ul>
+          <li><a href="https://www.instagram.com/berlincafe_bistro" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61591191917873" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="menu.html">Full menu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base"><span>&copy; 2026 Berlin Café &amp; Bistro</span><span>Brewed for the restless</span></div>
+  </div>
+</footer>
+
+<script>
+/* Mobile navigation sheet */
+(function () {
+  const btn = document.querySelector('.nav-toggle');
+  const sheet = document.getElementById('sheet');
+  if (!btn || !sheet) return;
+  const setOpen = open => {
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    sheet.hidden = !open;
+    btn.innerHTML = open ? btn.dataset.close : btn.dataset.open;
+  };
+  btn.dataset.open = btn.innerHTML;
+  btn.dataset.close = '<svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg>';
+  btn.addEventListener('click', () => setOpen(btn.getAttribute('aria-expanded') !== 'true'));
+  sheet.addEventListener('click', e => { if (e.target.closest('a')) setOpen(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+})();
+
+/* Category bar: scrollspy with a sliding pill */
+(function () {
+  const bar = document.querySelector('.cats-bar');
+  const pill = document.querySelector('.cats-pill');
+  const links = [...bar.querySelectorAll('a')];
+  const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  let current = null;
+  function setActive(id) {
+    const a = map.get(id);
+    if (!a || a === current) return;
+    current && current.removeAttribute('aria-current');
+    a.setAttribute('aria-current', 'true');
+    current = a;
+    pill.style.width = a.offsetWidth + 'px';
+    pill.style.transform = `translateX(${a.offsetLeft}px)`;
+    const l = a.offsetLeft - 24, r = a.offsetLeft + a.offsetWidth + 24;
+    if (l < bar.scrollLeft || r > bar.scrollLeft + bar.clientWidth) bar.scrollTo({ left: a.offsetLeft - bar.clientWidth / 2 + a.offsetWidth / 2, behavior: 'smooth' });
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
+  }, { rootMargin: '-35% 0px -60% 0px' });
+  document.querySelectorAll('.sec[id]').forEach(s => io.observe(s));
+  setActive('picks');
+  window.addEventListener('resize', () => { const a = current; current = null; a && setActive(a.getAttribute('href').slice(1)); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { const a = current; current = null; a && setActive(a.getAttribute('href').slice(1)); });
+})();
+</script>
+</body>
+</html>

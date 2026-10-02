@@ -1,0 +1,397 @@
+<title>Berlin Café & Bistro</title>
+<meta name="description" content="Berlin Café & Bistro in Mirpur, Dhaka. Specialty coffee, organic blended teas, German bakes and an all-day bistro menu. Brewed for the restless.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Gloock&family=Hanken+Grotesk:ital,wght@0,300..700;1,400&display=swap">
+<link rel="preload" as="image" href="img/hero/f001.webp" fetchpriority="high">
+<style>
+/*COMMON_CSS*/
+
+/* ---------- HERO: bean to cup ---------- */
+.hero { position: relative; height: 520vh; background: var(--ink); }
+.stage { position: sticky; top: 0; height: 100dvh; min-height: 560px; overflow: hidden; isolation: isolate; }
+#brew { position: absolute; inset: 0; width: 100%; height: 100%; display: block; background: #0d0a08; }
+.stage::after { /* soft vignette so overlay copy always reads */
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background:
+    radial-gradient(120% 90% at 50% 45%, transparent 45%, rgba(10, 8, 6, 0.75) 100%),
+    linear-gradient(to bottom, rgba(10, 8, 6, 0.35), transparent 22%, transparent 70%, rgba(10, 8, 6, 0.6));
+}
+/* local darkening behind the headline only; fades away with it */
+.hero-scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, rgba(10, 8, 6, 0.86) 0%, rgba(10, 8, 6, 0.62) 32%, rgba(10, 8, 6, 0) 62%); }
+@media (max-width: 760px) {
+  .hero-scrim { background: linear-gradient(180deg, rgba(10, 8, 6, 0.9) 0%, rgba(10, 8, 6, 0.7) 42%, rgba(10, 8, 6, 0) 68%); }
+}
+.hero-copy {
+  position: absolute; z-index: 2; left: var(--gutter); bottom: clamp(56px, 12vh, 120px);
+  max-width: min(620px, calc(100% - 2 * var(--gutter)));
+  will-change: transform, opacity, filter;
+}
+.hero-copy h1 { font-size: clamp(3rem, 7.4vw, 6rem); line-height: 0.98; letter-spacing: -0.025em; }
+.hero-copy h1 em { font-style: normal; color: var(--bronze); }
+.hero-copy p { margin-top: 20px; max-width: 34ch; font-size: clamp(1.02rem, 1.4vw, 1.18rem); color: var(--cream-dim); }
+.hero-actions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
+
+.chapter {
+  position: absolute; z-index: 2; left: var(--gutter); bottom: clamp(48px, 10vh, 104px);
+  width: min(400px, calc(100% - 2 * var(--gutter)));
+  padding: 22px 24px 24px; border-radius: var(--r-card);
+  opacity: 0; transform: translateY(24px); filter: blur(8px);
+  will-change: transform, opacity, filter;
+}
+.chapter h2 { font-size: clamp(2rem, 3.4vw, 2.7rem); line-height: 1; }
+.chapter p { margin-top: 10px; color: var(--cream-dim); font-size: 1rem; }
+.chapter .temp { margin-top: 14px; display: flex; align-items: baseline; gap: 10px; font-variant-numeric: tabular-nums; font-size: 0.9rem; color: var(--cream-dim); }
+.chapter .temp b { font: 400 1.6rem/1 var(--display); color: var(--bronze); }
+
+.hero-final {
+  position: absolute; z-index: 2; right: var(--gutter); bottom: clamp(56px, 12vh, 120px);
+  width: min(360px, calc(100% - 2 * var(--gutter))); text-align: right;
+  opacity: 0; transform: translateY(24px); filter: blur(8px);
+}
+.hero-final h2 { font-size: clamp(2.2rem, 4vw, 3.3rem); line-height: 1; }
+.hero-final p { margin-top: 12px; color: var(--cream-dim); }
+.hero-final .btn { margin-top: 22px; }
+
+.steps {
+  position: absolute; z-index: 2; right: var(--gutter); top: 50%; transform: translateY(-50%);
+  list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; text-align: right;
+  font: 600 0.72rem/1 var(--body); letter-spacing: 0.2em; text-transform: uppercase; color: rgba(239, 226, 204, 0.38);
+  transition: opacity 400ms var(--ease-out);
+}
+.steps li { display: flex; align-items: center; justify-content: flex-end; gap: 12px; transition: color 300ms ease; }
+.steps li::after { content: ""; width: 22px; height: 1px; background: currentColor; transform-origin: right; transform: scaleX(0.45); transition: transform 400ms var(--ease-out); }
+.steps li.on { color: var(--cream); }
+.steps li.on::after { transform: scaleX(1.6); background: var(--bronze); }
+
+@media (max-width: 760px) {
+  .hero { height: 460vh; }
+  .hero-copy { bottom: auto; top: calc(96px + env(safe-area-inset-top, 0px)); }
+  .hero-copy p { max-width: 30ch; }
+  .chapter { bottom: calc(28px + env(safe-area-inset-bottom, 0px)); padding: 18px 20px 20px; }
+  .hero-final { left: var(--gutter); right: var(--gutter); width: auto; text-align: left; bottom: calc(28px + env(safe-area-inset-bottom, 0px)); padding: 20px 22px 22px; border-radius: var(--r-card); }
+  .hero-final h2 { font-size: 2rem; }
+  .hero-final { background: linear-gradient(140deg, rgba(255,238,214,0.13), rgba(255,238,214,0.03) 55%), rgba(30,25,21,0.5); -webkit-backdrop-filter: blur(22px) saturate(165%); backdrop-filter: blur(22px) saturate(165%); border: 1px solid rgba(255,236,210,0.16); box-shadow: inset 0 1px 0 rgba(255,240,220,0.22), 0 24px 60px -18px rgba(6,4,2,0.6); }
+  .hero-final .btn { margin-top: 16px; }
+  .steps { top: auto; bottom: auto; top: calc(92px + env(safe-area-inset-top, 0px)); transform: none; gap: 10px; font-size: 0.62rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero { height: auto; }
+  .chapter, .steps, .hero-final { display: none; }
+}
+
+/* ---------- STORY ---------- */
+.story { padding-block: clamp(96px, 14vw, 180px) clamp(80px, 10vw, 140px); }
+.story-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.story h2 { font-size: clamp(2.5rem, 5.4vw, 4.6rem); line-height: 1.02; letter-spacing: -0.02em; }
+.story h2 em { font-style: normal; color: var(--bronze); }
+.story-text { margin-top: 28px; max-width: 46ch; color: var(--cream-dim); font-size: 1.12rem; }
+.story-facts { margin-top: 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+.story-facts div { padding: 18px 16px 0 0; }
+.story-facts dt { font: 400 1.9rem/1 var(--display); color: var(--cream); }
+.story-facts dd { margin: 8px 0 0; font-size: 0.88rem; color: var(--cream-dim); }
+.story-media { position: relative; aspect-ratio: 4 / 5; }
+.story-media .ph { position: absolute; overflow: hidden; border-radius: var(--r-img); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7); }
+.story-media .ph img { width: 100%; height: 100%; object-fit: cover; }
+.story-media .ph-a { inset: 0 18% 12% 0; }
+.story-media .ph-b { right: 0; bottom: 0; width: 46%; aspect-ratio: 4 / 5; border: 6px solid var(--ink); border-radius: 22px; }
+.story-media .ph-b img { border-radius: 16px; }
+@media (max-width: 860px) {
+  .story-grid { grid-template-columns: 1fr; }
+  .story-media { max-width: 520px; width: 100%; }
+}
+
+/* ---------- SIGNATURES: horizontal pan ---------- */
+.sig { position: relative; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; padding-block: 112px 56px; }
+.sig-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+.sig-head h2 { font-size: clamp(2.3rem, 4.6vw, 3.8rem); line-height: 1; max-width: 14ch; }
+.sig-pin { overflow: hidden; }
+.sig-track { display: flex; gap: 20px; padding-inline: var(--gutter); width: max-content; }
+.dish {
+  width: clamp(270px, 25vw, 340px); flex: none; border-radius: var(--r-card); padding: 10px 10px 20px;
+  text-decoration: none; display: flex; flex-direction: column;
+  transition: transform 260ms var(--ease-out);
+}
+.dish .ph { aspect-ratio: 4 / 5; border-radius: var(--r-img); overflow: hidden; background: var(--ink-3); }
+.dish .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-out); }
+.dish .meta { padding: 16px 10px 0; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: baseline; }
+.dish h3 { font-size: 1.45rem; line-height: 1.1; }
+.dish .price { font: 400 1.3rem/1 var(--display); color: var(--bronze); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dish p { grid-column: 1 / -1; color: var(--cream-dim); font-size: 0.95rem; }
+@media (hover: hover) and (pointer: fine) {
+  .dish:hover { transform: translateY(-6px); }
+  .dish:hover .ph img { transform: scale(1.06); }
+}
+@media (max-width: 860px) {
+  .sig { min-height: 0; padding-block: 72px 24px; }
+  .sig-pin { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 8px; }
+  .sig-pin::-webkit-scrollbar { display: none; }
+  .dish { scroll-snap-align: start; width: 78vw; max-width: 320px; }
+  .sig-track { padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); }
+}
+
+/* ---------- MENU CHAPTERS bento ---------- */
+.chapters { padding-block: clamp(100px, 12vw, 170px) clamp(60px, 8vw, 110px); }
+.chapters h2 { font-size: clamp(2.3rem, 4.6vw, 3.8rem); line-height: 1; max-width: 16ch; }
+.chapters > .wrap > p { margin-top: 18px; color: var(--cream-dim); max-width: 50ch; }
+.bento { margin-top: 48px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: minmax(150px, auto); gap: 16px; }
+.tile { position: relative; border-radius: var(--r-card); overflow: hidden; text-decoration: none; isolation: isolate; min-height: 280px; display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; }
+.tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 900ms var(--ease-out); }
+.tile::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(12, 9, 7, 0.88), rgba(12, 9, 7, 0.15) 60%, transparent); }
+.tile h3 { font-size: clamp(1.7rem, 2.6vw, 2.3rem); line-height: 1.02; }
+.tile p { margin-top: 8px; color: var(--cream-dim); font-size: 0.98rem; }
+.tile .go { position: absolute; top: 18px; right: 18px; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; transition: transform 260ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover img { transform: scale(1.05); }
+  .tile:hover .go { transform: rotate(-45deg); }
+}
+.t-coffee { grid-column: span 6; grid-row: span 2; min-height: 560px; }
+.t-bakery { grid-column: span 6; }
+.t-kitchen { grid-column: span 3; }
+.t-tea { grid-column: span 3; }
+.t-tea { background: var(--parch); color: var(--parch-ink); justify-content: space-between; }
+.t-tea::before { display: none; }
+.tea-card h3 { font-size: 1.6rem; }
+.tea-card ul { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 6px; font-size: 0.92rem; color: var(--parch-dim); }
+.tea-card .from { margin-top: 18px; font: 600 0.8rem/1 var(--engraved); letter-spacing: 0.12em; color: var(--parch-ink); }
+.tea-card .go { background: rgba(42, 33, 25, 0.08); color: var(--parch-ink); border: 1px solid rgba(42, 33, 25, 0.2); }
+@media (max-width: 1020px) {
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .t-coffee { grid-column: span 2; grid-row: auto; min-height: 420px; }
+  .t-bakery { grid-column: span 2; }
+  .t-kitchen, .t-tea { grid-column: span 1; }
+}
+@media (max-width: 600px) {
+  .bento { grid-template-columns: 1fr; }
+  .t-coffee, .t-bakery, .t-kitchen, .t-tea { grid-column: auto; min-height: 320px; }
+}
+
+/* ---------- GALLERY: parallax columns ---------- */
+.gallery { padding-block: clamp(80px, 10vw, 140px); overflow: hidden; }
+.gallery-head { display: grid; gap: 14px; margin-bottom: 48px; }
+.gallery h2 { font-size: clamp(2.3rem, 4.6vw, 3.8rem); line-height: 1; max-width: 18ch; }
+.gallery-head p { color: var(--cream-dim); max-width: 48ch; }
+.cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.col { display: grid; gap: 16px; will-change: transform; }
+.col:nth-child(2) { margin-top: 90px; }
+.cols figure { margin: 0; border-radius: var(--r-img); overflow: hidden; background: var(--ink-3); }
+.cols img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
+.cols figure.wide img { aspect-ratio: 1 / 1; }
+@media (max-width: 760px) {
+  .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .col { gap: 10px; }
+  .col:nth-child(2) { margin-top: 48px; }
+  .col:nth-child(3) { display: none; }
+}
+
+/* ---------- VISIT ---------- */
+.visit { position: relative; min-height: 100dvh; display: grid; align-items: center; isolation: isolate; overflow: hidden; padding-block: 120px; }
+.visit-bg { position: absolute; inset: -8% 0; z-index: -2; }
+.visit-bg img { width: 100%; height: 100%; object-fit: cover; }
+.visit::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, rgba(12, 9, 7, 0.9) 10%, rgba(12, 9, 7, 0.45) 60%, rgba(12, 9, 7, 0.3)); }
+.visit-card { max-width: 540px; padding: clamp(28px, 4vw, 44px); border-radius: 28px; }
+.visit h2 { font-size: clamp(2.4rem, 4.8vw, 4rem); line-height: 1; }
+.visit-list { margin: 28px 0 0; display: grid; gap: 18px; }
+.visit-list div { display: grid; grid-template-columns: 28px 1fr; gap: 14px; align-items: start; }
+.visit-list .icon { width: 22px; height: 22px; color: var(--bronze); margin-top: 3px; }
+.visit-list dt { font-weight: 600; }
+.visit-list dd { margin: 2px 0 0; color: var(--cream-dim); }
+.visit-actions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 10px; }
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="top">
+  <nav class="nav-bar glass" aria-label="Main">
+    <a class="brand" href="#top" aria-label="Berlin Café & Bistro, back to top">
+      <img src="img/logo-160.webp" alt="" width="42" height="42">
+      <span>Berlin<small>Café &amp; Bistro</small></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#story">Story</a></li>
+      <li><a href="#signatures">Signatures</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn btn-solid" href="menu.html">View menu</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Open navigation">{{ICON_LIST}}</button>
+    </div>
+  </nav>
+  <div class="nav-sheet glass" id="sheet" hidden>
+    <a href="#story">Story {{ICON_ARROW}}</a>
+    <a href="#signatures">Signatures {{ICON_ARROW}}</a>
+    <a href="#gallery">Gallery {{ICON_ARROW}}</a>
+    <a href="#visit">Visit {{ICON_ARROW}}</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="brew-section" aria-label="From green bean to the Berlin cup">
+    <div class="stage">
+      <canvas id="brew" aria-hidden="true"></canvas>
+      <div class="hero-scrim" data-scrim aria-hidden="true"></div>
+
+      <div class="hero-copy" data-hero-copy>
+        <h1>Brewed for <em>the restless.</em></h1>
+        <p>Berlin Café &amp; Bistro, Mirpur. Specialty coffee, German bakes and an all-day bistro menu.</p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="menu.html">View menu {{ICON_ARROW}}</a>
+          <a class="btn btn-ghost" href="#visit">Find us</a>
+        </div>
+      </div>
+
+      <div class="chapter glass" data-chapter="0">
+        <h2>Green</h2>
+        <p>Every cup starts as a raw coffee seed: dense, pale green and smelling of fresh hay.</p>
+      </div>
+      <div class="chapter glass" data-chapter="1">
+        <h2>The roast</h2>
+        <p>Heat turns the seeds gold, then chestnut, then deep brown, and they grow as they roast.</p>
+        <div class="temp"><b data-temp>180°</b><span>degrees Celsius in the drum</span></div>
+      </div>
+      <div class="chapter glass" data-chapter="2">
+        <h2>Oil and aroma</h2>
+        <p>Past the first crack the beans swell, the surface takes on a soft sheen and the room smells like coffee.</p>
+      </div>
+
+      <div class="hero-final" data-final>
+        <h2>Your cup is ready.</h2>
+        <p>Open 9 AM to 11 PM in Mirpur, Dhaka.</p>
+        <a class="btn btn-solid" href="menu.html">View menu {{ICON_ARROW}}</a>
+      </div>
+
+      <ol class="steps" aria-hidden="true">
+        <li data-step="0">Green</li>
+        <li data-step="1">Roast</li>
+        <li data-step="2">Aroma</li>
+        <li data-step="3">Cup</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="story" id="story">
+    <div class="wrap story-grid">
+      <div class="rv">
+        <h2>A little piece of Berlin, <em>in Mirpur.</em></h2>
+        <p class="story-text">Exposed brick, warm lamps and marble tables. Come in for your morning coffee, stay for breakfast and fresh pastries, or bring good company for a slow evening.</p>
+        <dl class="story-facts">
+          <div><dt>9 to 11</dt><dd>Open from morning coffee to late evening</dd></div>
+          <div><dt>4</dt><dd>Menu chapters, from espresso to schnitzel</dd></div>
+          <div><dt>2026</dt><dd>The year we opened our doors</dd></div>
+        </dl>
+      </div>
+      <div class="story-media">
+        <figure class="ph ph-a rv-clip"><img src="img/interior-brick.webp" alt="Brick wall with the Berlin badge above dark wooden tables" loading="lazy" width="1200" height="1600"></figure>
+        <figure class="ph ph-b rv"><img src="img/cup-in-hand.webp" alt="A hand holding a Berlin Café takeaway cup" loading="lazy" width="1050" height="1400"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sig" id="signatures" aria-labelledby="sig-title">
+    <div class="wrap sig-head">
+      <h2 id="sig-title">What the regulars order.</h2>
+      <a class="btn btn-ghost" href="menu.html">Full menu {{ICON_ARROW}}</a>
+    </div>
+    <div class="sig-pin">
+      <div class="sig-track">
+{{SIGNATURES}}
+      </div>
+    </div>
+  </section>
+
+  <section class="chapters" aria-labelledby="chap-title">
+    <div class="wrap">
+      <h2 id="chap-title" class="rv">Four chapters, one menu.</h2>
+      <p class="rv">Coffee from the espresso bar, organic teas, the bakery counter and a kitchen that cooks from breakfast to dinner.</p>
+      <div class="bento">
+        <a class="tile t-coffee rv" href="menu.html#coffee">
+          <img src="img/latte.webp" alt="Cafe latte with heart latte art on a Berlin napkin" loading="lazy" width="1200" height="1200">
+          <span class="go glass">{{ICON_UPRIGHT}}</span>
+          <h3>The Coffee Chapter</h3>
+          <p>Espresso classics, froccinos and iced. From 190 BDT.</p>
+        </a>
+        <a class="tile t-bakery rv" href="menu.html#bakery">
+          <img src="img/croissant.webp" alt="Croissant sandwich on a dark plate" loading="lazy" width="1200" height="1200">
+          <span class="go glass">{{ICON_UPRIGHT}}</span>
+          <h3>Die Bäckerei</h3>
+          <p>Cheesecakes, croissants, donuts and brownies. From 120 BDT.</p>
+        </a>
+        <a class="tile t-kitchen rv" href="menu.html#appetizers">
+          <img src="img/schnitzel.webp" alt="Crispy chicken schnitzel strips with dipping sauces" loading="lazy" width="750" height="1000">
+          <span class="go glass">{{ICON_UPRIGHT}}</span>
+          <h3>The Bistro</h3>
+          <p>Appetizers, sandwiches, salads and breakfast.</p>
+        </a>
+        <a class="tile t-tea tea-card rv" href="menu.html#teas">
+          <span class="go">{{ICON_UPRIGHT}}</span>
+          <div>
+            <h3>Organic Blended Teas</h3>
+            <ul>
+              <li>Jasmine &amp; White Peach</li>
+              <li>African Red Rooibos</li>
+              <li>Lemongrass, Ginger &amp; Rose</li>
+              <li>Blueberry &amp; Mint</li>
+              <li>Cherry &amp; Rose</li>
+              <li>Raspberry &amp; Blueberry</li>
+            </ul>
+          </div>
+          <p class="from">220 BDT each</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery" id="gallery" aria-labelledby="gal-title">
+    <div class="wrap">
+      <div class="gallery-head">
+        <h2 id="gal-title" class="rv">Brick, brass and lamplight.</h2>
+        <p class="rv">A room made for long conversations. Find a corner by the window or a table under the badge.</p>
+      </div>
+      <div class="cols">
+        <div class="col" data-speed="-60">
+          <figure><img src="img/interior-sign.webp" alt="The Berlin badge mounted on a brick wall" loading="lazy" width="1377" height="1600"></figure>
+          <figure><img src="img/cake-iced.webp" alt="Chocolate cake slice with an iced drink" loading="lazy" width="1200" height="1200"></figure>
+        </div>
+        <div class="col" data-speed="40">
+          <figure><img src="img/interior-window.webp" alt="Dining room with brick walls, pendant lamps and a large window" loading="lazy" width="1200" height="1600"></figure>
+          <figure><img src="img/shakes.webp" alt="Two chocolate shakes and a cookie" loading="lazy" width="1200" height="1200"></figure>
+        </div>
+        <div class="col" data-speed="-110">
+          <figure><img src="img/interior-checker.webp" alt="Seating area with checkerboard floor and framed paintings" loading="lazy" width="1199" height="1600"></figure>
+          <figure><img src="img/interior-gallery.webp" alt="Lounge chairs beside a wall of framed art" loading="lazy" width="1200" height="1600"></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visit" id="visit" aria-labelledby="visit-title">
+    <div class="visit-bg" data-visit-bg><img src="img/interior-lounge.webp" alt="" loading="lazy" width="1200" height="1600"></div>
+    <div class="wrap">
+      <div class="visit-card glass rv">
+        <h2 id="visit-title">Come by for a cup.</h2>
+        <dl class="visit-list">
+          <div>{{ICON_CLOCK}}<span><dt>Opening hours</dt><dd>9:00 AM to 11:00 PM</dd></span></div>
+          <div>{{ICON_PIN}}<span><dt>Berlin Café &amp; Bistro</dt><dd>Mirpur, Dhaka</dd></span></div>
+        </dl>
+        <div class="visit-actions">
+          <a class="btn btn-solid" href="https://maps.app.goo.gl/bYZZ1aU8XZ1qJz4E9" target="_blank" rel="noopener">Get directions {{ICON_UPRIGHT}}</a>
+          <a class="btn btn-ghost" href="https://www.instagram.com/berlincafe_bistro" target="_blank" rel="noopener">{{ICON_IG}} Instagram</a>
+          <a class="btn btn-ghost" href="https://www.facebook.com/profile.php?id=61591191917873" target="_blank" rel="noopener">{{ICON_FB}} Facebook</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{{FOOTER}}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/*NAV_JS*/
+/*HERO_JS*/
+/*PAGE_JS*/
+</script>

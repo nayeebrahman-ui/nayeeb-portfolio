@@ -1,0 +1,11 @@
+# render intermediates (final frames live in site/img/hero)
+render/frames/
+render/test/
+render/*.log
+render/*.txt
+render/render.pid
+render/cup_tex.png
+site/preview.html
+__pycache__/
+*.pyc
+.DS_Store
