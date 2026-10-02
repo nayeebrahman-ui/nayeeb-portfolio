@@ -1,0 +1,867 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"></head><body><title>Berlin Café & Bistro</title>
+<meta name="description" content="Berlin Café & Bistro in Mirpur, Dhaka. Specialty coffee, organic blended teas, German bakes and an all-day bistro menu. Brewed for the restless.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Gloock&family=Hanken+Grotesk:ital,wght@0,300..700;1,400&display=swap">
+<link rel="preload" as="image" href="img/hero/f001.webp" fetchpriority="high">
+<style>
+/* Layout: night bistro. Warm charcoal ground, bronze accent from the badge, parchment only where paper lives (menu, tea card). */
+:root {
+  --ink: #13110f;
+  --ink-2: #1c1916;
+  --ink-3: #26211c;
+  --cream: #efe2cc;
+  --cream-dim: #b4a893;
+  --bronze: #c79f6b;
+  --bronze-deep: #8a6a42;
+  --line: rgba(239, 226, 204, 0.12);
+  --parch: #eadcbf;
+  --parch-2: #e2d1ae;
+  --parch-ink: #2a2119;
+  --parch-dim: #5b4a37;
+  --parch-rule: #9a774b;
+
+  --display: "Gloock", "Bodoni 72", "Didot", Georgia, serif;
+  --body: "Hanken Grotesk", "Helvetica Neue", system-ui, -apple-system, sans-serif;
+  --engraved: "Cinzel", "Trajan Pro", "Times New Roman", serif;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --r-card: 22px;
+  --r-img: 16px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --wrap: 1240px;
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--cream);
+  font: 400 1.0625rem/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+::selection { background: var(--bronze); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--bronze); outline-offset: 3px; border-radius: 6px; }
+html { scrollbar-color: var(--bronze-deep) var(--ink); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--ink-3); border-radius: 10px; border: 2px solid var(--ink); }
+::-webkit-scrollbar-thumb:hover { background: var(--bronze-deep); }
+
+.skip { position: absolute; left: 16px; top: -60px; z-index: 100; padding: 10px 16px; border-radius: 999px; background: var(--cream); color: var(--ink); font-weight: 600; text-decoration: none; transition: top 200ms var(--ease-out); }
+.skip:focus { top: calc(12px + env(safe-area-inset-top, 0px)); }
+
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+
+h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+p { margin: 0; text-wrap: pretty; }
+
+.icon { width: 1.15em; height: 1.15em; flex: none; }
+
+/* film grain on a fixed, non-interactive layer only */
+.grain { position: fixed; inset: 0; z-index: 90; pointer-events: none; opacity: 0.07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+/* Glass: web approximation of Apple's material (backdrop-filter + layered edges). Not an official Apple asset. */
+.glass {
+  position: relative;
+  background:
+    linear-gradient(140deg, rgba(255, 238, 214, 0.13), rgba(255, 238, 214, 0.03) 55%),
+    rgba(30, 25, 21, 0.46);
+  -webkit-backdrop-filter: blur(22px) saturate(165%);
+  backdrop-filter: blur(22px) saturate(165%);
+  border: 1px solid rgba(255, 236, 210, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 220, 0.22),
+    inset 0 -1px 0 rgba(255, 240, 220, 0.05),
+    0 24px 60px -18px rgba(6, 4, 2, 0.6);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass { background: var(--ink-2); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
+/* Buttons: pills everywhere */
+.btn {
+  --pad: 0.85em 1.35em;
+  display: inline-flex; align-items: center; gap: 0.55em;
+  padding: var(--pad); border-radius: 999px; border: 1px solid transparent;
+  font: 600 0.95rem/1 var(--body); letter-spacing: 0.01em; white-space: nowrap;
+  text-decoration: none; cursor: pointer;
+  transition: transform 160ms var(--ease-out), background-color 220ms ease, border-color 220ms ease, color 220ms ease;
+}
+.btn:active { transform: scale(0.97); }
+.btn-solid { background: var(--cream); color: var(--ink); }
+.btn-ghost { background: rgba(255, 236, 210, 0.06); color: var(--cream); border-color: rgba(255, 236, 210, 0.22); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-solid:hover { background: #fff6e6; }
+  .btn-ghost:hover { background: rgba(255, 236, 210, 0.12); border-color: rgba(255, 236, 210, 0.36); }
+  .btn .icon { transition: transform 200ms var(--ease-out); }
+  .btn:hover .icon { transform: translateX(3px); }
+}
+
+/* Nav */
+.nav {
+  position: fixed; z-index: 50; left: 0; right: 0;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  padding-inline: 16px;
+  pointer-events: none;
+}
+.nav-bar {
+  pointer-events: auto;
+  max-width: 1120px; margin-inline: auto; height: 62px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 0 8px 0 10px; border-radius: 999px;
+  transition: background-color 300ms ease, box-shadow 300ms ease;
+}
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand img { width: 42px; height: 42px; border-radius: 50%; }
+.brand span { font-family: var(--display); font-size: 1.3rem; letter-spacing: 0.02em; }
+.brand small { display: block; font: 600 0.6rem/1 var(--body); letter-spacing: 0.24em; text-transform: uppercase; color: var(--cream-dim); margin-top: 3px; }
+.nav-links { display: flex; align-items: center; gap: 2px; list-style: none; margin: 0; padding: 0; }
+.nav-links a { display: block; padding: 0.6em 0.95em; border-radius: 999px; text-decoration: none; font-weight: 500; font-size: 0.94rem; color: var(--cream-dim); transition: color 200ms ease, background-color 200ms ease; }
+.nav-links a[aria-current="page"] { color: var(--cream); background: rgba(255, 236, 210, 0.09); }
+@media (hover: hover) and (pointer: fine) { .nav-links a:hover { color: var(--cream); background: rgba(255, 236, 210, 0.07); } }
+.nav-cta { display: flex; align-items: center; gap: 8px; }
+.nav-toggle { display: none; width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255, 236, 210, 0.18); background: rgba(255, 236, 210, 0.06); color: var(--cream); align-items: center; justify-content: center; cursor: pointer; transition: transform 160ms var(--ease-out); }
+.nav-toggle:active { transform: scale(0.95); }
+.nav-sheet {
+  pointer-events: auto; max-width: 1120px; margin: 10px auto 0; border-radius: var(--r-card); padding: 10px;
+  transform-origin: top right;
+  transition: opacity 220ms var(--ease-out), transform 260ms var(--ease-out), filter 260ms var(--ease-out);
+}
+.nav-sheet[hidden] { display: block !important; opacity: 0; transform: scale(0.96) translateY(-6px); filter: blur(6px); pointer-events: none; visibility: hidden; }
+.nav-sheet a { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-radius: 14px; text-decoration: none; font-size: 1.1rem; }
+.nav-sheet a:active { background: rgba(255, 236, 210, 0.08); }
+@media (min-width: 861px) { .nav-sheet { display: none !important; } }
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: inline-flex; }
+  .nav-cta .btn { --pad: 0.8em 1.1em; font-size: 0.9rem; }
+}
+@media (max-width: 400px) { .brand small { display: none; } .brand span { font-size: 1.15rem; } }
+
+/* Footer */
+.footer { border-top: 1px solid var(--line); padding-block: 56px calc(40px + env(safe-area-inset-bottom, 0px)); color: var(--cream-dim); font-size: 0.95rem; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; align-items: start; }
+.footer .brand img { width: 56px; height: 56px; }
+.footer h3 { font: 600 0.78rem/1 var(--body); letter-spacing: 0.18em; text-transform: uppercase; color: var(--cream); margin-bottom: 14px; }
+.footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.footer a { text-decoration: none; transition: color 200ms ease; }
+@media (hover: hover) and (pointer: fine) { .footer a:hover { color: var(--cream); } }
+.footer-base { margin-top: 44px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 0.85rem; }
+@media (max-width: 760px) { .footer-grid { grid-template-columns: 1fr; } }
+
+/* Scroll-driven reveals: progressive enhancement. Content is fully visible where unsupported or reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .rv { animation: rv-in linear both; animation-timeline: view(); animation-range: entry 0% entry 220px; }
+    .rv-clip { animation: rv-clip linear both; animation-timeline: view(); animation-range: entry 0% entry 320px; }
+  }
+}
+@keyframes rv-in { from { opacity: 0; transform: translateY(28px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes rv-clip { from { clip-path: inset(18% 8% 18% 8% round 28px); transform: scale(1.06); } to { clip-path: inset(0 0 0 0 round var(--r-img)); transform: none; } }
+
+
+/* ---------- HERO: bean to cup ---------- */
+.hero { position: relative; height: 520vh; background: var(--ink); }
+.stage { position: sticky; top: 0; height: 100dvh; min-height: 560px; overflow: hidden; isolation: isolate; }
+#brew { position: absolute; inset: 0; width: 100%; height: 100%; display: block; background: #0d0a08; }
+.stage::after { /* soft vignette so overlay copy always reads */
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background:
+    radial-gradient(120% 90% at 50% 45%, transparent 45%, rgba(10, 8, 6, 0.75) 100%),
+    linear-gradient(to bottom, rgba(10, 8, 6, 0.35), transparent 22%, transparent 70%, rgba(10, 8, 6, 0.6));
+}
+/* local darkening behind the headline only; fades away with it */
+.hero-scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, rgba(10, 8, 6, 0.86) 0%, rgba(10, 8, 6, 0.62) 32%, rgba(10, 8, 6, 0) 62%); }
+@media (max-width: 760px) {
+  .hero-scrim { background: linear-gradient(180deg, rgba(10, 8, 6, 0.9) 0%, rgba(10, 8, 6, 0.7) 42%, rgba(10, 8, 6, 0) 68%); }
+}
+.hero-copy {
+  position: absolute; z-index: 2; left: var(--gutter); bottom: clamp(56px, 12vh, 120px);
+  max-width: min(620px, calc(100% - 2 * var(--gutter)));
+  will-change: transform, opacity, filter;
+}
+.hero-copy h1 { font-size: clamp(3rem, 7.4vw, 6rem); line-height: 0.98; letter-spacing: -0.025em; }
+.hero-copy h1 em { font-style: normal; color: var(--bronze); }
+.hero-copy p { margin-top: 20px; max-width: 34ch; font-size: clamp(1.02rem, 1.4vw, 1.18rem); color: var(--cream-dim); }
+.hero-actions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
+
+.chapter {
+  position: absolute; z-index: 2; left: var(--gutter); bottom: clamp(48px, 10vh, 104px);
+  width: min(400px, calc(100% - 2 * var(--gutter)));
+  padding: 22px 24px 24px; border-radius: var(--r-card);
+  opacity: 0; transform: translateY(24px); filter: blur(8px);
+  will-change: transform, opacity, filter;
+}
+.chapter h2 { font-size: clamp(2rem, 3.4vw, 2.7rem); line-height: 1; }
+.chapter p { margin-top: 10px; color: var(--cream-dim); font-size: 1rem; }
+.chapter .temp { margin-top: 14px; display: flex; align-items: baseline; gap: 10px; font-variant-numeric: tabular-nums; font-size: 0.9rem; color: var(--cream-dim); }
+.chapter .temp b { font: 400 1.6rem/1 var(--display); color: var(--bronze); }
+
+.hero-final {
+  position: absolute; z-index: 2; right: var(--gutter); bottom: clamp(56px, 12vh, 120px);
+  width: min(360px, calc(100% - 2 * var(--gutter))); text-align: right;
+  opacity: 0; transform: translateY(24px); filter: blur(8px);
+}
+.hero-final h2 { font-size: clamp(2.2rem, 4vw, 3.3rem); line-height: 1; }
+.hero-final p { margin-top: 12px; color: var(--cream-dim); }
+.hero-final .btn { margin-top: 22px; }
+
+.steps {
+  position: absolute; z-index: 2; right: var(--gutter); top: 50%; transform: translateY(-50%);
+  list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; text-align: right;
+  font: 600 0.72rem/1 var(--body); letter-spacing: 0.2em; text-transform: uppercase; color: rgba(239, 226, 204, 0.38);
+  transition: opacity 400ms var(--ease-out);
+}
+.steps li { display: flex; align-items: center; justify-content: flex-end; gap: 12px; transition: color 300ms ease; }
+.steps li::after { content: ""; width: 22px; height: 1px; background: currentColor; transform-origin: right; transform: scaleX(0.45); transition: transform 400ms var(--ease-out); }
+.steps li.on { color: var(--cream); }
+.steps li.on::after { transform: scaleX(1.6); background: var(--bronze); }
+
+@media (max-width: 760px) {
+  .hero { height: 460vh; }
+  .hero-copy { bottom: auto; top: calc(96px + env(safe-area-inset-top, 0px)); }
+  .hero-copy p { max-width: 30ch; }
+  .chapter { bottom: calc(28px + env(safe-area-inset-bottom, 0px)); padding: 18px 20px 20px; }
+  .hero-final { left: var(--gutter); right: var(--gutter); width: auto; text-align: left; bottom: calc(28px + env(safe-area-inset-bottom, 0px)); padding: 20px 22px 22px; border-radius: var(--r-card); }
+  .hero-final h2 { font-size: 2rem; }
+  .hero-final { background: linear-gradient(140deg, rgba(255,238,214,0.13), rgba(255,238,214,0.03) 55%), rgba(30,25,21,0.5); -webkit-backdrop-filter: blur(22px) saturate(165%); backdrop-filter: blur(22px) saturate(165%); border: 1px solid rgba(255,236,210,0.16); box-shadow: inset 0 1px 0 rgba(255,240,220,0.22), 0 24px 60px -18px rgba(6,4,2,0.6); }
+  .hero-final .btn { margin-top: 16px; }
+  .steps { top: auto; bottom: auto; top: calc(92px + env(safe-area-inset-top, 0px)); transform: none; gap: 10px; font-size: 0.62rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero { height: auto; }
+  .chapter, .steps, .hero-final { display: none; }
+}
+
+/* ---------- STORY ---------- */
+.story { padding-block: clamp(96px, 14vw, 180px) clamp(80px, 10vw, 140px); }
+.story-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.story h2 { font-size: clamp(2.5rem, 5.4vw, 4.6rem); line-height: 1.02; letter-spacing: -0.02em; }
+.story h2 em { font-style: normal; color: var(--bronze); }
+.story-text { margin-top: 28px; max-width: 46ch; color: var(--cream-dim); font-size: 1.12rem; }
+.story-facts { margin-top: 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+.story-facts div { padding: 18px 16px 0 0; }
+.story-facts dt { font: 400 1.9rem/1 var(--display); color: var(--cream); }
+.story-facts dd { margin: 8px 0 0; font-size: 0.88rem; color: var(--cream-dim); }
+.story-media { position: relative; aspect-ratio: 4 / 5; }
+.story-media .ph { position: absolute; overflow: hidden; border-radius: var(--r-img); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7); }
+.story-media .ph img { width: 100%; height: 100%; object-fit: cover; }
+.story-media .ph-a { inset: 0 18% 12% 0; }
+.story-media .ph-b { right: 0; bottom: 0; width: 46%; aspect-ratio: 4 / 5; border: 6px solid var(--ink); border-radius: 22px; }
+.story-media .ph-b img { border-radius: 16px; }
+@media (max-width: 860px) {
+  .story-grid { grid-template-columns: 1fr; }
+  .story-media { max-width: 520px; width: 100%; }
+}
+
+/* ---------- SIGNATURES: horizontal pan ---------- */
+.sig { position: relative; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; padding-block: 112px 56px; }
+.sig-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+.sig-head h2 { font-size: clamp(2.3rem, 4.6vw, 3.8rem); line-height: 1; max-width: 14ch; }
+.sig-pin { overflow: hidden; }
+.sig-track { display: flex; gap: 20px; padding-inline: var(--gutter); width: max-content; }
+.dish {
+  width: clamp(270px, 25vw, 340px); flex: none; border-radius: var(--r-card); padding: 10px 10px 20px;
+  text-decoration: none; display: flex; flex-direction: column;
+  transition: transform 260ms var(--ease-out);
+}
+.dish .ph { aspect-ratio: 4 / 5; border-radius: var(--r-img); overflow: hidden; background: var(--ink-3); }
+.dish .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-out); }
+.dish .meta { padding: 16px 10px 0; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: baseline; }
+.dish h3 { font-size: 1.45rem; line-height: 1.1; }
+.dish .price { font: 400 1.3rem/1 var(--display); color: var(--bronze); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dish p { grid-column: 1 / -1; color: var(--cream-dim); font-size: 0.95rem; }
+@media (hover: hover) and (pointer: fine) {
+  .dish:hover { transform: translateY(-6px); }
+  .dish:hover .ph img { transform: scale(1.06); }
+}
+@media (max-width: 860px) {
+  .sig { min-height: 0; padding-block: 72px 24px; }
+  .sig-pin { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 8px; }
+  .sig-pin::-webkit-scrollbar { display: none; }
+  .dish { scroll-snap-align: start; width: 78vw; max-width: 320px; }
+  .sig-track { padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); }
+}
+
+/* ---------- MENU CHAPTERS bento ---------- */
+.chapters { padding-block: clamp(100px, 12vw, 170px) clamp(60px, 8vw, 110px); }
+.chapters h2 { font-size: clamp(2.3rem, 4.6vw, 3.8rem); line-height: 1; max-width: 16ch; }
+.chapters > .wrap > p { margin-top: 18px; color: var(--cream-dim); max-width: 50ch; }
+.bento { margin-top: 48px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: minmax(150px, auto); gap: 16px; }
+.tile { position: relative; border-radius: var(--r-card); overflow: hidden; text-decoration: none; isolation: isolate; min-height: 280px; display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; }
+.tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 900ms var(--ease-out); }
+.tile::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(12, 9, 7, 0.88), rgba(12, 9, 7, 0.15) 60%, transparent); }
+.tile h3 { font-size: clamp(1.7rem, 2.6vw, 2.3rem); line-height: 1.02; }
+.tile p { margin-top: 8px; color: var(--cream-dim); font-size: 0.98rem; }
+.tile .go { position: absolute; top: 18px; right: 18px; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; transition: transform 260ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover img { transform: scale(1.05); }
+  .tile:hover .go { transform: rotate(-45deg); }
+}
+.t-coffee { grid-column: span 6; grid-row: span 2; min-height: 560px; }
+.t-bakery { grid-column: span 6; }
+.t-kitchen { grid-column: span 3; }
+.t-tea { grid-column: span 3; }
+.t-tea { background: var(--parch); color: var(--parch-ink); justify-content: space-between; }
+.t-tea::before { display: none; }
+.tea-card h3 { font-size: 1.6rem; }
+.tea-card ul { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 6px; font-size: 0.92rem; color: var(--parch-dim); }
+.tea-card .from { margin-top: 18px; font: 600 0.8rem/1 var(--engraved); letter-spacing: 0.12em; color: var(--parch-ink); }
+.tea-card .go { background: rgba(42, 33, 25, 0.08); color: var(--parch-ink); border: 1px solid rgba(42, 33, 25, 0.2); }
+@media (max-width: 1020px) {
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .t-coffee { grid-column: span 2; grid-row: auto; min-height: 420px; }
+  .t-bakery { grid-column: span 2; }
+  .t-kitchen, .t-tea { grid-column: span 1; }
+}
+@media (max-width: 600px) {
+  .bento { grid-template-columns: 1fr; }
+  .t-coffee, .t-bakery, .t-kitchen, .t-tea { grid-column: auto; min-height: 320px; }
+}
+
+/* ---------- GALLERY: parallax columns ---------- */
+.gallery { padding-block: clamp(80px, 10vw, 140px); overflow: hidden; }
+.gallery-head { display: grid; gap: 14px; margin-bottom: 48px; }
+.gallery h2 { font-size: clamp(2.3rem, 4.6vw, 3.8rem); line-height: 1; max-width: 18ch; }
+.gallery-head p { color: var(--cream-dim); max-width: 48ch; }
+.cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.col { display: grid; gap: 16px; will-change: transform; }
+.col:nth-child(2) { margin-top: 90px; }
+.cols figure { margin: 0; border-radius: var(--r-img); overflow: hidden; background: var(--ink-3); }
+.cols img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
+.cols figure.wide img { aspect-ratio: 1 / 1; }
+@media (max-width: 760px) {
+  .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .col { gap: 10px; }
+  .col:nth-child(2) { margin-top: 48px; }
+  .col:nth-child(3) { display: none; }
+}
+
+/* ---------- VISIT ---------- */
+.visit { position: relative; min-height: 100dvh; display: grid; align-items: center; isolation: isolate; overflow: hidden; padding-block: 120px; }
+.visit-bg { position: absolute; inset: -8% 0; z-index: -2; }
+.visit-bg img { width: 100%; height: 100%; object-fit: cover; }
+.visit::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, rgba(12, 9, 7, 0.9) 10%, rgba(12, 9, 7, 0.45) 60%, rgba(12, 9, 7, 0.3)); }
+.visit-card { max-width: 540px; padding: clamp(28px, 4vw, 44px); border-radius: 28px; }
+.visit h2 { font-size: clamp(2.4rem, 4.8vw, 4rem); line-height: 1; }
+.visit-list { margin: 28px 0 0; display: grid; gap: 18px; }
+.visit-list div { display: grid; grid-template-columns: 28px 1fr; gap: 14px; align-items: start; }
+.visit-list .icon { width: 22px; height: 22px; color: var(--bronze); margin-top: 3px; }
+.visit-list dt { font-weight: 600; }
+.visit-list dd { margin: 2px 0 0; color: var(--cream-dim); }
+.visit-actions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 10px; }
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="top">
+  <nav class="nav-bar glass" aria-label="Main">
+    <a class="brand" href="#top" aria-label="Berlin Café & Bistro, back to top">
+      <img src="img/logo-160.webp" alt="" width="42" height="42">
+      <span>Berlin<small>Café &amp; Bistro</small></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#story">Story</a></li>
+      <li><a href="#signatures">Signatures</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn btn-solid" href="menu.html">View menu</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Open navigation"><svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg></button>
+    </div>
+  </nav>
+  <div class="nav-sheet glass" id="sheet" hidden>
+    <a href="#story">Story <svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+    <a href="#signatures">Signatures <svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+    <a href="#gallery">Gallery <svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+    <a href="#visit">Visit <svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="brew-section" aria-label="From green bean to the Berlin cup">
+    <div class="stage">
+      <canvas id="brew" aria-hidden="true"></canvas>
+      <div class="hero-scrim" data-scrim aria-hidden="true"></div>
+
+      <div class="hero-copy" data-hero-copy>
+        <h1>Brewed for <em>the restless.</em></h1>
+        <p>Berlin Café &amp; Bistro, Mirpur. Specialty coffee, German bakes and an all-day bistro menu.</p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="menu.html">View menu <svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+          <a class="btn btn-ghost" href="#visit">Find us</a>
+        </div>
+      </div>
+
+      <div class="chapter glass" data-chapter="0">
+        <h2>Green</h2>
+        <p>Every cup starts as a raw coffee seed: dense, pale green and smelling of fresh hay.</p>
+      </div>
+      <div class="chapter glass" data-chapter="1">
+        <h2>The roast</h2>
+        <p>Heat turns the seeds gold, then chestnut, then deep brown, and they grow as they roast.</p>
+        <div class="temp"><b data-temp>180°</b><span>degrees Celsius in the drum</span></div>
+      </div>
+      <div class="chapter glass" data-chapter="2">
+        <h2>Oil and aroma</h2>
+        <p>Past the first crack the beans swell, the surface takes on a soft sheen and the room smells like coffee.</p>
+      </div>
+
+      <div class="hero-final" data-final>
+        <h2>Your cup is ready.</h2>
+        <p>Open 9 AM to 11 PM in Mirpur, Dhaka.</p>
+        <a class="btn btn-solid" href="menu.html">View menu <svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+      </div>
+
+      <ol class="steps" aria-hidden="true">
+        <li data-step="0">Green</li>
+        <li data-step="1">Roast</li>
+        <li data-step="2">Aroma</li>
+        <li data-step="3">Cup</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="story" id="story">
+    <div class="wrap story-grid">
+      <div class="rv">
+        <h2>A little piece of Berlin, <em>in Mirpur.</em></h2>
+        <p class="story-text">Exposed brick, warm lamps and marble tables. Come in for your morning coffee, stay for breakfast and fresh pastries, or bring good company for a slow evening.</p>
+        <dl class="story-facts">
+          <div><dt>9 to 11</dt><dd>Open from morning coffee to late evening</dd></div>
+          <div><dt>4</dt><dd>Menu chapters, from espresso to schnitzel</dd></div>
+          <div><dt>2026</dt><dd>The year we opened our doors</dd></div>
+        </dl>
+      </div>
+      <div class="story-media">
+        <figure class="ph ph-a rv-clip"><img src="img/interior-brick.webp" alt="Brick wall with the Berlin badge above dark wooden tables" loading="lazy" width="1200" height="1600"></figure>
+        <figure class="ph ph-b rv"><img src="img/cup-in-hand.webp" alt="A hand holding a Berlin Café takeaway cup" loading="lazy" width="1050" height="1400"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sig" id="signatures" aria-labelledby="sig-title">
+    <div class="wrap sig-head">
+      <h2 id="sig-title">What the regulars order.</h2>
+      <a class="btn btn-ghost" href="menu.html">Full menu <svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+    </div>
+    <div class="sig-pin">
+      <div class="sig-track">
+        <a class="dish glass" href="menu.html">
+          <div class="ph"><img src="img/latte.webp" alt="Cafe Latte" loading="lazy"></div>
+          <div class="meta"><h3>Cafe Latte</h3><span class="price">260</span><p>Silky milk, a heart on top.</p></div>
+        </a>
+        <a class="dish glass" href="menu.html">
+          <div class="ph"><img src="img/cheese-blast.webp" alt="Chicken Cheese Blast" loading="lazy"></div>
+          <div class="meta"><h3>Chicken Cheese Blast</h3><span class="price">390</span><p>Mozzarella-stuffed chicken croquettes.</p></div>
+        </a>
+        <a class="dish glass" href="menu.html">
+          <div class="ph"><img src="img/huns-kase.webp" alt="Huns &amp; Kase" loading="lazy"></div>
+          <div class="meta"><h3>Huns &amp; Kase</h3><span class="price">390</span><p>Chicken, cheese and mushroom cream.</p></div>
+        </a>
+        <a class="dish glass" href="menu.html">
+          <div class="ph"><img src="img/club.webp" alt="Classic Club Sandwich" loading="lazy"></div>
+          <div class="meta"><h3>Classic Club Sandwich</h3><span class="price">380</span><p>Triple-decker with golden chips.</p></div>
+        </a>
+        <a class="dish glass" href="menu.html">
+          <div class="ph"><img src="img/shakes.webp" alt="Froccinos &amp; Shakes" loading="lazy"></div>
+          <div class="meta"><h3>Froccinos &amp; Shakes</h3><span class="price">from 360</span><p>Ice-blended, piled high.</p></div>
+        </a>
+        <a class="dish glass" href="menu.html">
+          <div class="ph"><img src="img/bruschetta.webp" alt="Classic Bruschetta" loading="lazy"></div>
+          <div class="meta"><h3>Classic Bruschetta</h3><span class="price">350</span><p>Garlic mushrooms on toasted bread.</p></div>
+        </a>
+        <a class="dish glass" href="menu.html">
+          <div class="ph"><img src="img/english-breakfast.webp" alt="English Breakfast" loading="lazy"></div>
+          <div class="meta"><h3>English Breakfast</h3><span class="price">400</span><p>Eggs, sausage, beans and toast.</p></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapters" aria-labelledby="chap-title">
+    <div class="wrap">
+      <h2 id="chap-title" class="rv">Four chapters, one menu.</h2>
+      <p class="rv">Coffee from the espresso bar, organic teas, the bakery counter and a kitchen that cooks from breakfast to dinner.</p>
+      <div class="bento">
+        <a class="tile t-coffee rv" href="menu.html#coffee">
+          <img src="img/latte.webp" alt="Cafe latte with heart latte art on a Berlin napkin" loading="lazy" width="1200" height="1200">
+          <span class="go glass"><svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span>
+          <h3>The Coffee Chapter</h3>
+          <p>Espresso classics, froccinos and iced. From 190 BDT.</p>
+        </a>
+        <a class="tile t-bakery rv" href="menu.html#bakery">
+          <img src="img/croissant.webp" alt="Croissant sandwich on a dark plate" loading="lazy" width="1200" height="1200">
+          <span class="go glass"><svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span>
+          <h3>Die Bäckerei</h3>
+          <p>Cheesecakes, croissants, donuts and brownies. From 120 BDT.</p>
+        </a>
+        <a class="tile t-kitchen rv" href="menu.html#appetizers">
+          <img src="img/schnitzel.webp" alt="Crispy chicken schnitzel strips with dipping sauces" loading="lazy" width="750" height="1000">
+          <span class="go glass"><svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span>
+          <h3>The Bistro</h3>
+          <p>Appetizers, sandwiches, salads and breakfast.</p>
+        </a>
+        <a class="tile t-tea tea-card rv" href="menu.html#teas">
+          <span class="go"><svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span>
+          <div>
+            <h3>Organic Blended Teas</h3>
+            <ul>
+              <li>Jasmine &amp; White Peach</li>
+              <li>African Red Rooibos</li>
+              <li>Lemongrass, Ginger &amp; Rose</li>
+              <li>Blueberry &amp; Mint</li>
+              <li>Cherry &amp; Rose</li>
+              <li>Raspberry &amp; Blueberry</li>
+            </ul>
+          </div>
+          <p class="from">220 BDT each</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery" id="gallery" aria-labelledby="gal-title">
+    <div class="wrap">
+      <div class="gallery-head">
+        <h2 id="gal-title" class="rv">Brick, brass and lamplight.</h2>
+        <p class="rv">A room made for long conversations. Find a corner by the window or a table under the badge.</p>
+      </div>
+      <div class="cols">
+        <div class="col" data-speed="-60">
+          <figure><img src="img/interior-sign.webp" alt="The Berlin badge mounted on a brick wall" loading="lazy" width="1377" height="1600"></figure>
+          <figure><img src="img/cake-iced.webp" alt="Chocolate cake slice with an iced drink" loading="lazy" width="1200" height="1200"></figure>
+        </div>
+        <div class="col" data-speed="40">
+          <figure><img src="img/interior-window.webp" alt="Dining room with brick walls, pendant lamps and a large window" loading="lazy" width="1200" height="1600"></figure>
+          <figure><img src="img/shakes.webp" alt="Two chocolate shakes and a cookie" loading="lazy" width="1200" height="1200"></figure>
+        </div>
+        <div class="col" data-speed="-110">
+          <figure><img src="img/interior-checker.webp" alt="Seating area with checkerboard floor and framed paintings" loading="lazy" width="1199" height="1600"></figure>
+          <figure><img src="img/interior-gallery.webp" alt="Lounge chairs beside a wall of framed art" loading="lazy" width="1200" height="1600"></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visit" id="visit" aria-labelledby="visit-title">
+    <div class="visit-bg" data-visit-bg><img src="img/interior-lounge.webp" alt="" loading="lazy" width="1200" height="1600"></div>
+    <div class="wrap">
+      <div class="visit-card glass rv">
+        <h2 id="visit-title">Come by for a cup.</h2>
+        <dl class="visit-list">
+          <div><svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg><span><dt>Opening hours</dt><dd>9:00 AM to 11:00 PM</dd></span></div>
+          <div><svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg><span><dt>Berlin Café &amp; Bistro</dt><dd>Mirpur, Dhaka</dd></span></div>
+        </dl>
+        <div class="visit-actions">
+          <a class="btn btn-solid" href="https://maps.app.goo.gl/bYZZ1aU8XZ1qJz4E9" target="_blank" rel="noopener">Get directions <svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a>
+          <a class="btn btn-ghost" href="https://www.instagram.com/berlincafe_bistro" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg> Instagram</a>
+          <a class="btn btn-ghost" href="https://www.facebook.com/profile.php?id=61591191917873" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"/></svg> Facebook</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="./"><img src="img/logo-160.webp" alt="" width="56" height="56"><span>Berlin<small>Café &amp; Bistro</small></span></a>
+        <p style="margin-top:16px;max-width:34ch">Specialty coffee, organic teas, German bakes and an all-day bistro in Mirpur, Dhaka. Est. 2026.</p>
+      </div>
+      <div>
+        <h3>Visit</h3>
+        <ul>
+          <li>Mirpur, Dhaka</li>
+          <li>9:00 AM to 11:00 PM</li>
+          <li><a href="https://maps.app.goo.gl/bYZZ1aU8XZ1qJz4E9" target="_blank" rel="noopener">Get directions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Follow</h3>
+        <ul>
+          <li><a href="https://www.instagram.com/berlincafe_bistro" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61591191917873" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="menu.html">Full menu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base"><span>&copy; 2026 Berlin Café &amp; Bistro</span><span>Brewed for the restless</span></div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/* Mobile navigation sheet */
+(function () {
+  const btn = document.querySelector('.nav-toggle');
+  const sheet = document.getElementById('sheet');
+  if (!btn || !sheet) return;
+  const setOpen = open => {
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    sheet.hidden = !open;
+    btn.innerHTML = open ? btn.dataset.close : btn.dataset.open;
+  };
+  btn.dataset.open = btn.innerHTML;
+  btn.dataset.close = '<svg class="icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg>';
+  btn.addEventListener('click', () => setOpen(btn.getAttribute('aria-expanded') !== 'true'));
+  sheet.addEventListener('click', e => { if (e.target.closest('a')) setOpen(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+})();
+
+/* Hero: a rendered, photoreal frame sequence (green beans -> roast -> Berlin cup) scrubbed by scroll.
+   Frames load coarse-to-fine so scrubbing works before every frame has arrived; adjacent frames are
+   cross-blended for motion between rendered frames. */
+(() => {
+  const section = document.getElementById('brew-section');
+  const canvas = document.getElementById('brew');
+  if (!section || !canvas) return;
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const copy = section.querySelector('[data-hero-copy]');
+  const chapters = [...section.querySelectorAll('[data-chapter]')];
+  const finalEl = section.querySelector('[data-final]');
+  const steps = [...section.querySelectorAll('[data-step]')];
+  const tempEl = section.querySelector('[data-temp]');
+  const scrim = section.querySelector('[data-scrim]');
+
+  const N = 90;
+  const src = i => `img/hero/f${String(i + 1).padStart(3, '0')}.webp`;
+  const frames = new Array(N).fill(null);
+
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const seg = (p, a, b) => { const t = clamp((p - a) / (b - a)); return t * t * (3 - 2 * t); };
+
+  // scroll progress -> frame position. Hold the first frame while the headline leaves.
+  const P0 = 0.04, P1 = 0.97;
+  const frameAt = p => clamp((p - P0) / (P1 - P0)) * (N - 1);
+
+  // ---------- canvas ----------
+  let W = 0, H = 0, dpr = 1;
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    paint(shown, true);
+  }
+
+  function nearestLoaded(i) {
+    if (frames[i]) return i;
+    for (let d = 1; d < N; d++) {
+      if (i - d >= 0 && frames[i - d]) return i - d;
+      if (i + d < N && frames[i + d]) return i + d;
+    }
+    return -1;
+  }
+
+  function cover(img, alpha) {
+    const cw = canvas.width, ch = canvas.height;
+    const iw = img.naturalWidth, ih = img.naturalHeight;
+    // portrait screens: keep the subject whole (image ~76% of the height) and feather the edges into the page
+    const portrait = cw / ch < 0.9;
+    const s = portrait ? Math.max(ch * 0.76 / ih, cw / iw) : Math.max(cw / iw, ch / ih);
+    const w = iw * s, h = ih * s;
+    const x = (cw - w) / 2, y = portrait ? (ch - h) * 0.46 : (ch - h) / 2;
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(img, x, y, w, h);
+    ctx.globalAlpha = 1;
+    return portrait ? [y, y + h] : null;
+  }
+
+  function feather(top, bot) {
+    const cw = canvas.width, f = 90 * dpr;
+    let g = ctx.createLinearGradient(0, top, 0, top + f);
+    g.addColorStop(0, 'rgba(13,10,8,1)'); g.addColorStop(1, 'rgba(13,10,8,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, top - 1, cw, f + 1);
+    g = ctx.createLinearGradient(0, bot - f, 0, bot);
+    g.addColorStop(0, 'rgba(13,10,8,0)'); g.addColorStop(1, 'rgba(13,10,8,1)');
+    ctx.fillStyle = g; ctx.fillRect(0, bot - f, cw, f + 1);
+  }
+
+  let lastKey = '';
+  function paint(p, force) {
+    let fpos = frameAt(p);
+    if (p === target) fpos = Math.round(fpos);
+    const i0 = Math.floor(fpos), t = fpos - i0;
+    const a = nearestLoaded(i0);
+    if (a < 0) return;
+    const b = (t > 0.02 && i0 + 1 < N && frames[i0 + 1] && a === i0) ? i0 + 1 : -1;
+    const key = a + ':' + b + ':' + (b >= 0 ? t.toFixed(3) : '') + ':' + canvas.width;
+    if (key === lastKey && !force) return;
+    lastKey = key;
+    ctx.fillStyle = '#0d0a08';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const band = cover(frames[a], 1);
+    if (b >= 0) cover(frames[b], t);
+    if (band) feather(band[0], band[1]);
+  }
+
+  // ---------- loading: first frame, then every 16th, 8th, 4th, 2nd, rest ----------
+  function load(i) {
+    return new Promise(res => {
+      if (frames[i]) return res();
+      const img = new Image();
+      img.decoding = 'async';
+      img.onload = () => {
+        const done = () => { frames[i] = img; lastKey = ''; kick(); res(); };
+        img.decode ? img.decode().then(done, done) : done();
+      };
+      img.onerror = () => res();
+      img.src = src(i);
+    });
+  }
+  function order(firstOnly) {
+    if (firstOnly) return [0];
+    const seen = new Set([0]), out = [];
+    for (const step of [16, 8, 4, 2, 1]) {
+      for (let i = 0; i < N; i += step) if (!seen.has(i)) { seen.add(i); out.push(i); }
+      if (!seen.has(N - 1)) { seen.add(N - 1); out.push(N - 1); }
+    }
+    return out;
+  }
+  async function loadAll() {
+    const q = order(false);
+    let k = 0;
+    const worker = async () => { while (k < q.length) await load(q[k++]); };
+    await Promise.all([worker(), worker(), worker(), worker()]);
+  }
+
+  // ---------- overlay copy ----------
+  // chapter windows: [fade in start, fully in, fade out start, gone]
+  const CH = [[0.07, 0.11, 0.2, 0.25], [0.27, 0.31, 0.5, 0.55], [0.56, 0.6, 0.68, 0.72]];
+  function overlay(p) {
+    const out = seg(p, 0.015, 0.065);
+    if (copy) {
+      copy.style.opacity = String(1 - out);
+      copy.style.transform = `translate3d(0, ${-40 * out}px, 0)`;
+      copy.style.filter = out > 0.01 ? `blur(${8 * out}px)` : 'none';
+      copy.style.visibility = out >= 1 ? 'hidden' : 'visible';
+    }
+    if (scrim) scrim.style.opacity = String(1 - seg(p, 0.01, 0.08));
+    chapters.forEach((el, i) => {
+      const [a, b, c, d] = CH[i] || [2, 2, 2, 2];
+      const vin = seg(p, a, b), vout = seg(p, c, d);
+      const v = vin * (1 - vout);
+      el.style.opacity = String(v);
+      el.style.transform = `translate3d(0, ${24 * (1 - vin) - 24 * vout}px, 0)`;
+      el.style.filter = v < 0.99 ? `blur(${8 * (1 - v)}px)` : 'none';
+      el.style.visibility = v <= 0.001 ? 'hidden' : 'visible';
+    });
+    // drum temperature follows the rendered roast (frames 22-62)
+    if (tempEl) tempEl.textContent = Math.round(lerp(150, 218, seg(p, 0.27, 0.69))) + '°';
+    const f = seg(p, 0.88, 0.95);
+    if (finalEl) {
+      finalEl.style.opacity = String(f);
+      finalEl.style.transform = `translate3d(0, ${24 * (1 - f)}px, 0)`;
+      finalEl.style.filter = f < 0.99 ? `blur(${8 * (1 - f)}px)` : 'none';
+      finalEl.style.visibility = f <= 0.001 ? 'hidden' : 'visible';
+    }
+    const stepIdx = p < 0.26 ? 0 : p < 0.555 ? 1 : p < 0.73 ? 2 : 3;
+    steps.forEach((li, i) => li.classList.toggle('on', i === stepIdx && p > 0.02));
+    const stepsEl = steps[0] && steps[0].parentElement;
+    if (stepsEl) stepsEl.style.opacity = String(seg(p, 0.02, 0.08) * (1 - seg(p, 0.86, 0.92)));
+  }
+
+  // ---------- loop: runs only while the value is still settling ----------
+  let target = 0, shown = 0, raf = 0;
+  function tick() {
+    raf = 0;
+    // a little inertia so a wheel tick glides instead of jumping
+    shown += (target - shown) * 0.16;
+    if (Math.abs(target - shown) < 0.0003) shown = target;
+    paint(shown);
+    overlay(shown);
+    if (shown !== target) raf = requestAnimationFrame(tick);
+  }
+  function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+
+  window.addEventListener('resize', resize);
+
+  if (reduce) {
+    // static: the finished cup, no scroll scene
+    shown = target = 1;
+    load(N - 1).then(() => { resize(); paint(1, true); });
+    if (copy) { copy.style.opacity = '1'; copy.style.visibility = 'visible'; }
+    resize();
+    return;
+  }
+
+  function bind() {
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.create({
+        trigger: section, start: 'top top', end: 'bottom bottom',
+        onUpdate: self => { target = self.progress; kick(); },
+      });
+    } else {
+      const read = () => { const r = section.getBoundingClientRect(); target = clamp(-r.top / (r.height - innerHeight)); kick(); };
+      window.addEventListener('scroll', read, { passive: true });
+      read();
+    }
+  }
+
+  resize();
+  overlay(0);
+  load(0).then(() => { paint(shown, true); loadAll(); });
+  bind();
+  kick();
+})();
+
+/* Home page scroll choreography (desktop only where it pins). */
+(function () {
+  if (!window.gsap || !window.ScrollTrigger) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  gsap.registerPlugin(ScrollTrigger);
+  const mm = gsap.matchMedia();
+
+  mm.add('(min-width: 861px)', () => {
+    // Signatures: vertical scroll pans the dish strip sideways
+    const pin = document.querySelector('.sig-pin');
+    const track = document.querySelector('.sig-track');
+    if (pin && track) {
+      const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
+      gsap.to(track, {
+        x: () => -distance(), ease: 'none',
+        scrollTrigger: { trigger: '#signatures', start: 'top top', end: () => '+=' + distance(), pin: true, scrub: 0.8, invalidateOnRefresh: true },
+      });
+    }
+    // Gallery columns drift at different speeds for depth
+    document.querySelectorAll('.col[data-speed]').forEach(col => {
+      gsap.fromTo(col, { y: 0 }, {
+        y: Number(col.dataset.speed), ease: 'none',
+        scrollTrigger: { trigger: '.gallery', start: 'top bottom', end: 'bottom top', scrub: true },
+      });
+    });
+  });
+
+  // Visit backdrop eases slower than the page
+  const bg = document.querySelector('[data-visit-bg]');
+  if (bg) gsap.fromTo(bg, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: '#visit', start: 'top bottom', end: 'bottom top', scrub: true } });
+
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+})();
+
+</script>
+</body></html>

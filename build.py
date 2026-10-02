@@ -168,6 +168,12 @@ open("site/menu.html", "w", encoding="utf-8").write(menu)
 open("site/preview.html", "w", encoding="utf-8").write(
     '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"></head><body>'
     + index + "</body></html>")
+# standalone static site for regular hosting (Vercel etc.): full documents + images
+import shutil
+if os.path.isdir("web"): shutil.rmtree("web")
+shutil.copytree("site/img", "web/img")
+open("web/index.html", "w", encoding="utf-8").write(open("site/preview.html", encoding="utf-8").read())
+shutil.copy("site/menu.html", "web/menu.html")
 print("built", len(index), len(menu))
 for f in ("site/index.html", "site/menu.html"):
     s = read(f)
